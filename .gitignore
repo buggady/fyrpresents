@@ -1,3 +1,6 @@
+myproject/config/settings/dev.py
+myproject/config/settings/secrets.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
