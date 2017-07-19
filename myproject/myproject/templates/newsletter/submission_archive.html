@@ -1,0 +1,30 @@
+{% extends "newsletter/common.html" %}
+{% load i18n %}
+{% block title %}{% trans "FYR Official Newsletters" %}{% endblock title %}
+{% block description %}{% trans "List of all the past newsletters from: " %}{{ newsletter.title }}{% endblock %}
+
+{% block subcontent %}
+	<h4 class="classic-title"><span>{% trans "Latest Newsletters" %}</span></h4>
+	<div class="latest-posts-classic">
+		{% for submission in latest %}
+  		<div class="col-sm-7 post-row">
+        <div class="left-meta-post">
+          <div class="post-date"><span class="day">{{  submission.publish_date.day }}</span><span class="month">{{ submission.publish_date|date:"M" }}</span></div>
+          <div class="post-type"><i class="fa fa-picture-o"></i></div>
+        </div>
+        <h3 class="post-title"><a href="{{ submission.get_absolute_url }}">{{ submission.message.title }}: {{ submission.message.articles.all.0.title|safe }}</a></h3>
+        <div class="post-content">
+          <p>{{ submission.message.articles.all.0.text|safe }} <a class="read-more" href="{{ submission.get_absolute_url }}">Read More...</a></p>
+        </div>
+      </div>
+		{% endfor %}
+    <div class="row">
+      <div class="col-xs-3"><a href="{% url "newsletter_subscribe_request" newsletter.slug %}">Subscribe</a></div>
+      {% if not user.is_authenticated %}
+        <div class="col-xs-3"><a href="{% url "newsletter_update_request" newsletter.slug %}">Update</a></div>
+      {% endif %}
+
+      <div class="col-xs-3"><a href="{% url "newsletter_unsubscribe_request" newsletter.slug %}">Unsubscribe</a></div>
+  </div>
+	</div>
+{% endblock subcontent %}

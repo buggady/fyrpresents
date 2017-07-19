@@ -1,0 +1,25 @@
+{% extends 'fyrpresents/base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Server error" %}{% endblock title %}
+
+{% block content %}
+
+{% load staticfiles %}
+
+<!-- Start Content -->
+<div id="content">
+  <div class="container">
+    <div class="page-content">
+      <div class="error-page">
+        <h1>500</h1>
+        <h3>{% trans "Server error" %}</h3>
+        <p>{% trans "There's been an error. It's been reported to the site administrators via e-mail and should be fixed shortly. Thanks for your patience." %}</p>
+        <div class="text-center"><a href="{% url 'home' %}" class="btn-system btn-small">Back To Home</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Content -->
+{% endblock content %}
+
+  

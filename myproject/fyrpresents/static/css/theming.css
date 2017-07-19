@@ -1,0 +1,106 @@
+/** 
+ * theming styles
+ * 
+ */
+
+#content {
+    padding: 0;
+    margin: 15px;
+}
+
+#header {
+    background: #205067;
+
+    /* Reset the indents of django-flat-theme
+      (need to restore 40px on branding+user-tools instead) */
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#header #branding h1 {
+    margin: 0;
+    padding: 5px 10px;
+    text-indent: -9999px;
+    background: transparent url(../images/django.png) 10px 5px no-repeat;
+    background: #FFFFFF;
+    height: 31px;
+    width: 93px;
+}
+
+#header #user-tools {
+    /* Old Django: 1.2em, flat theme: 40px; */
+    padding-right: 1.2em;
+}
+
+#bookmark-form {
+    clear: both;
+}
+
+div.breadcrumbs {
+    display: block;
+    padding: 10px 15px;
+    border: 0;
+    background-position: 0 -8px;
+    border-bottom: 1px solid #ededed;
+}
+
+div.breadcrumbs a {
+    display: inline;
+}
+
+
+#module_1 h2 {
+    background: #093145;
+}
+
+#module_1 h3 {
+    background: #EC6478;
+}
+
+#module_2 h2 {
+    background: #107896;
+}
+
+#module_2 h3 {
+    background: #43ABC9;
+}
+
+#module_3 h2 {
+    background: #829356;
+}
+
+#module_3 h3 {
+    background: #B5C689;
+}
+
+#module_4 h2 {
+    background: #BCA136;
+}
+
+#module_4 h3 {
+    background: #EFD469;
+}
+
+#module_5 h2 {
+    background: #C2571A;
+}
+
+#module_5 h3 {
+    background: #F58B4C;
+}
+
+#module_6 h2 {
+    background: #9A2617;
+}
+
+#module_6 h3 {
+    background: #CD594A;
+}
+
+.dashboard-module h2 {
+    color: #FFFFFF;
+}
+
+.dashboard-module-content h3 a {
+    color: #FFFFFF;
+}
