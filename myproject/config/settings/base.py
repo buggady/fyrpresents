@@ -4,9 +4,11 @@ Django settings for fyrpresents project.
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import sys, os
+from unipath import Path
 from secrets import *
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+#BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = Path(__file__).ancestor(3)
 
 ALLOWED_HOSTS = ['texasfyre.com','fyrpresents.com', '127.0.0.1', '74.220.216.114']
 
@@ -77,9 +79,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-		    BASE_DIR + '/templates/',
-	    ],
+        'DIRS': (BASE_DIR.child("templates"),),
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -122,10 +122,10 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-STATIC_ROOT = '/home1/texasfyr/public_html/static_files/'
+STATIC_ROOT = BASE_DIR.child("static_files")
 STATIC_URL = '/static_files/'
 
-MEDIA_ROOT = '/home1/texasfyr/public_html/media_files/'
+MEDIA_ROOT = BASE_DIR.child("media_files")
 MEDIA_URL = '/media/'
 
 AUTHENTICATION_BACKENDS = (

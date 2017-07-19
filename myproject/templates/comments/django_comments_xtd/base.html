@@ -1,0 +1,31 @@
+{% extends 'fyrpresents/base.html' %}
+{% load static %}
+{% block title %}{% trans "Commenting Application" %}{% endblock title %}
+{% block description %}{% trans "Exciting to catch back up on all the exciting things that happened in our lives." %}{% endblock %}
+
+{% block extra_head %}
+    
+    <style>
+      .container {
+        width: auto;
+        max-width: 680px;
+        padding: 0 15px;
+      }
+      .post-footer, .comments {
+        padding: 20px 0;
+      }
+    </style>    
+{% endblock %}
+{% block content %}
+    <div class="container">
+      <div class="page-header">
+	    <h4 class="text-center">{% block header %}{% endblock %}</h4>
+      </div>
+    </div>
+
+    <div class="container">
+      {% block subcontent %}
+      {% endblock %}
+    </div>
+
+{% endblock %}

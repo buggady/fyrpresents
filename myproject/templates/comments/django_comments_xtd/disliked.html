@@ -1,0 +1,8 @@
+{% extends "comments/django_comments_xtd/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "You disliked the comment" %}{% endblock %}
+
+{% block subcontent %}
+  <h1>{% trans "Thanks for taking the time to participate." %}</h1>
+{% endblock %}
