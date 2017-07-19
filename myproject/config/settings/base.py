@@ -106,8 +106,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+# Database Details Secret
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -153,6 +152,7 @@ CRISPY_TEMPLATE_PACK='bootstrap3'
 
 EMAIL_BACKEND = 'django_sendmail_backend.backends.EmailBackend'
 EMAIL_USE_SSL = True
+#Email Details Secret
 DEFAULT_FROM_EMAIL = 'info@fyrpresents.com'
 EMAIL_PORT = 465
 
