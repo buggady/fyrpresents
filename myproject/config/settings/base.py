@@ -14,7 +14,6 @@ ADMINS = (('Nick', 'nicolasdeshefy@gmail.com'),)
 SERVER_EMAIL = 'info@fyrpresents.com'
 
 # Application definition
-
 INSTALLED_APPS = [
     'fyrpresents',
     'events',
