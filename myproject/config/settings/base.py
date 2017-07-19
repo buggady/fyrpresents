@@ -109,15 +109,6 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'OPTIONS': {
-            'read_default_file': '/home/texasfyr/etc/my.cnf',
-        },
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -132,8 +123,6 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
-
 STATIC_ROOT = '/home1/texasfyr/public_html/static_files/'
 STATIC_URL = '/static_files/'
 
@@ -164,17 +153,10 @@ CRISPY_TEMPLATE_PACK='bootstrap3'
 
 EMAIL_BACKEND = 'django_sendmail_backend.backends.EmailBackend'
 EMAIL_USE_SSL = True
-EMAIL_HOST = 'box1156.bluehost.com'
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'info@fyrpresents.com'
 EMAIL_PORT = 465
 
-STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 DJSTRIPE_INVOICE_FROM_EMAIL="accounts@fyrpresents.com"
-
-GOOGLE_API_KEY = "AIzaSyCO8dQV20l7gue0gdzpW4Xsaep23IUDNa4"
 
 NEWSLETTER_CONFIRM_EMAIL = False
 
