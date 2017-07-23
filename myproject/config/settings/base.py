@@ -122,10 +122,10 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-STATIC_ROOT = BASE_DIR.child("static_files")
-STATIC_URL = '/static_files/'
+STATIC_ROOT = BASE_DIR.parent.child("static")
+STATIC_URL = '/static/'
 
-MEDIA_ROOT = BASE_DIR.child("media_files")
+MEDIA_ROOT = BASE_DIR.parent.child("media")
 MEDIA_URL = '/media/'
 
 AUTHENTICATION_BACKENDS = (
