@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'events',
     'users',
     'mingle',
+    'market',
     'mathfilters',
     'crispy_forms',
     'allauth',
@@ -80,13 +81,11 @@ MIDDLEWARE_CLASSES = [
     
 ROOT_URLCONF = 'config.urls'
 
-from oscar import OSCAR_MAIN_TEMPLATE_DIR
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR.child("templates"),
-            OSCAR_MAIN_TEMPLATE_DIR
         ],
         'OPTIONS': {
             'context_processors': [
@@ -183,3 +182,6 @@ HAYSTACK_CONNECTIONS = {
         'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
     },
 }
+
+OSCAR_SHOP_NAME = "The Rave Trade"
+OSCAR_SHOP_TAGLINE = "Share your art, check out other's art!"
