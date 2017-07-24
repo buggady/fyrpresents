@@ -19,7 +19,7 @@ class UserForm(forms.ModelForm):
         #self.helper.layout.append(Submit('save', 'save', css_class='btn-system btn-large'))
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ['username', 'first_name', 'last_name', 'email']
 
 class ProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

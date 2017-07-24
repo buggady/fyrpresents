@@ -32,26 +32,26 @@
       <div class="project-media col-md-8">
         <div class="touch-slider project-slider" style="height:400px">
           <div class="item" style="background-color:gray">
-            <a class="lightbox" title="No one likes you" href="/static_files/events/images/raver-paradise-2017/raver-paradise1-2017.jpg" data-lightbox-gallery="gallery2">
+            <a class="lightbox" title="No one likes you" href="/static/events/images/raver-paradise-2017/raver-paradise1-2017.jpg" data-lightbox-gallery="gallery2">
               <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
               <div class="crop" style="display:block;margin:auto">
-                <img src="/static_files/events/images/raver-paradise-2017/raver-paradise1-2017.jpg" >
+                <img src="/static/events/images/raver-paradise-2017/raver-paradise1-2017.jpg" >
               </div>
             </a>
           </div>
           <div class="item" style="background-color:gray">
-            <a class="lightbox" title="Stuff Eventually" href="/static_files/events/images/raver-paradise-2017/raver-paradise2-2017.jpg" data-lightbox-gallery="gallery2">
+            <a class="lightbox" title="Stuff Eventually" href="/static/events/images/raver-paradise-2017/raver-paradise2-2017.jpg" data-lightbox-gallery="gallery2">
               <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
               <div class="crop" style="display:block;margin:auto">
-                <img src="/static_files/events/images/raver-paradise-2017/raver-paradise2-2017.jpg" >
+                <img src="/static/events/images/raver-paradise-2017/raver-paradise2-2017.jpg" >
               </div>
             </a>
           </div>
           <div class="item" style="background-color:gray">
-            <a class="lightbox" title="So much stuff" href="/static_files/events/images/raver-paradise-2017/raver-paradise3-2017.jpg" data-lightbox-gallery="gallery2">
+            <a class="lightbox" title="So much stuff" href="/static/events/images/raver-paradise-2017/raver-paradise3-2017.jpg" data-lightbox-gallery="gallery2">
               <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
               <div class="crop" style="display:block;margin:auto">
-                <img src="/static_files/events/images/raver-paradise-2017/raver-paradise3-2017.jpg" >
+                <img src="/static/events/images/raver-paradise-2017/raver-paradise3-2017.jpg" >
               </div>
             </a>
           </div>
@@ -68,12 +68,14 @@
         <h4><span>About Yourself</span></h4>
         <ul>
           <li><strong>Name:</strong> {{ request.user.first_name}} {{ request.user.last_name}}</li>
+          <li><strong>Email:</strong> {{ request.user.email }}</li>
           <li><strong>Home Address:</strong> {{ request.user.profile.home_address}}</li>
+          {{ status }}
         </ul>
         <h4><span>Best Travel Buddies</span></h4>
         <div class="row" style="margin-bottom:20px">
           {% for friend in request.user.profile.top_friends|slice:"1:" %}
-             <img src="{{ friend.profile.profile_image_url_small }}" alt="User Profile Picture"/>
+             <img title="{{ friend.first_name }} {{ friend.last_name }}" src="{{ friend.profile.profile_image_url_small }}" alt="User Profile Picture"/>
           {% endfor %}
         </div>
       </div>
@@ -124,7 +126,7 @@
         {% if event.profile.in_the_past %}
         		<div class="portfolio-item item">
             <div class="portfolio-border">
-              <div class="portfolio-thumb" style="height:200px">
+              <div class="portfolio-thumb crop-event">
               	{% with 'events/images/'|add:event.profile.slug|add:'.jpg' as image_static %}
                 <a href="{% url 'past_event_details' event.profile.slug %}">
                 <!-- <a class="lightbox" data-lightbox-type="ajax" href="https://vimeo.com/78468485"> -->

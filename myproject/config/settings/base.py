@@ -7,6 +7,8 @@ import sys, os
 from unipath import Path
 from secrets import *
 
+from oscar.defaults import *
+
 #BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = Path(__file__).ancestor(3)
 
@@ -15,7 +17,7 @@ ALLOWED_HOSTS = ['texasfyre.com','fyrpresents.com', '127.0.0.1', '74.220.216.114
 ADMINS = (('Nick', 'nicolasdeshefy@gmail.com'),)
 SERVER_EMAIL = 'info@fyrpresents.com'
 
-# Application definition
+from oscar import get_core_apps
 INSTALLED_APPS = [
     'fyrpresents',
     'events',
@@ -61,7 +63,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+] + get_core_apps()
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,14 +74,20 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'oscar.apps.basket.middleware.BasketMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
     
 ROOT_URLCONF = 'config.urls'
 
+from oscar import OSCAR_MAIN_TEMPLATE_DIR
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': (BASE_DIR.child("templates"),),
+        'DIRS': [
+            BASE_DIR.child("templates"),
+            OSCAR_MAIN_TEMPLATE_DIR
+        ],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -88,12 +96,11 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 		        'django.core.context_processors.i18n',
 
-                'django.contrib.auth.context_processors.auth',
-                'django.template.context_processors.i18n',
-                'django.template.context_processors.request',
-                'django.contrib.messages.context_processors.messages',
-                'zinnia.context_processors.version',  # Optional
-                'django.core.context_processors.request',
+                'oscar.apps.search.context_processors.search_form',
+                'oscar.apps.promotions.context_processors.promotions',
+                'oscar.apps.checkout.context_processors.checkout',
+                'oscar.apps.customer.notifications.context_processors.notifications',
+                'oscar.core.context_processors.metadata',
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
@@ -129,7 +136,7 @@ MEDIA_ROOT = BASE_DIR.parent.child("media")
 MEDIA_URL = '/media/'
 
 AUTHENTICATION_BACKENDS = (
-
+    'oscar.apps.customer.auth_backends.EmailBackend',
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
     # `allauth` specific authentication methods, such as login by e-mail
@@ -170,3 +177,9 @@ ADMIN_TOOLS_MENU = 'myproject.menu.CustomMenu'
 ADMIN_TOOLS_INDEX_DASHBOARD = 'myproject.dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'myproject.dashboard.CustomAppIndexDashboard'
 ADMIN_TOOLS_THEMING_CSS = 'css/theming.css'
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}

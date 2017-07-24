@@ -5,7 +5,7 @@ from django.contrib.auth.views import logout
 
 urlpatterns = [
 	url(r'^', include('fyrpresents.urls')),
-	url(r'^events/', include('events.urls')),
+	url(r'^event/', include('events.urls')),
 	url(r'^user/', include('users.urls')),
 	url(r'^mingle/', include('mingle.urls')),
 	url(r'^accounts/logout/$', logout,{'next_page': '/'}),

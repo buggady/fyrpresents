@@ -100,7 +100,7 @@ class EventAddress(SingleObjectMixin, FormView):
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated():
             return HttpResponseForbidden()
-
+        message = ' '
         self.object = self.get_object()
         form = self.get_form(self.get_form_class())
         if form.is_valid():
@@ -116,6 +116,7 @@ class EventAddress(SingleObjectMixin, FormView):
                     if request.user.groups.filter(name="Developers").exists():
                         self.object.address = Address.objects.get(id=address.id)
                         self.object.save()
+                        message = "You are an admin so address saved successfully"
                         pass
                     else:
                         #Send us an email if you don't have approval
@@ -125,11 +126,12 @@ class EventAddress(SingleObjectMixin, FormView):
                         email_body = 'address' + " added"
                         recipients = ['info@fyrpresents.com']
                         send_mail(subject, email_body, email, recipients)
+                        message = "Sent email to website admin"
 
         return super(EventAddress, self).post(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse_lazy('event_details', kwargs={'slug': self.object.slug})
+        return reverse_lazy('event_details', kwargs={'slug': self.object.slug, 'status': message})
 
 #Class shows ability to display both form and details of an object with 3 above classes
 class EventDetailsView(View):
