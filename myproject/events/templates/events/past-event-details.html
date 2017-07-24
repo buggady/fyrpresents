@@ -51,7 +51,7 @@
               <li><strong>Host:</strong> {{ eventprofile.host.first_name }}</li>
               <li><strong>Location:</strong></li>
               <li><strong>Total Price:</strong> ${{eventprofile.total_price}}</li>
-              <li><strong>Website:</strong> ${{eventprofile.website}}</li>
+              <li><strong>Website:</strong> {{eventprofile.website}}</li>
               <li>
                 {% if request.user.is_authenticated %}
                     <input type="button" class="btn-system btn-small btn-rsvp" name="{{ eventprofile.slug }}" value="{{ rsvp_button_value }}" />

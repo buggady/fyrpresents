@@ -6,10 +6,12 @@ from django.contrib.auth.models import User
 from schedule.models import Event
 from events.models import Event, EventUserRel
 from users.models import UserProfile
+from address.models import Address
 from django.views import generic
 from datetime import date
-from forms import EditProfileForm
-from django.contrib.auth.decorators import permission_required
+from users.forms import UserForm, ProfileForm
+from django.contrib.auth.decorators import login_required, permission_required
+from django.db import transaction
 from django.utils.decorators import method_decorator
 
 import facebook_sdk
@@ -40,28 +42,21 @@ class UserEventsDetailsView(generic.DetailView):
     def dispatch(self, *args, **kwargs):
         return super(UserEventsDetailsView, self).dispatch(*args, **kwargs)
 
-@permission_required('users.fyr_member', login_url='/home')
+@login_required
+@transaction.atomic
 def edit_profile(request):
-    data = {'first_name': request.user.first_name, 
-            'last_name': request.user.last_name,
-            #'home_city': request.user.profile.home_city
-            }
-    form = EditProfileForm(initial=data)
     message = ' '
 
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = EditProfileForm(request.POST)
-        if form.is_valid():
-            user = get_object_or_404(User, username=request.user.username)
-            profile = get_object_or_404(UserProfile, user=user)
-            user.first_name = form.cleaned_data['first_name']
-            user.last_name = form.cleaned_data['last_name']
-            #profile.home_city = form.cleaned_data['home_city']
-            #profile.color_theme = request.COOKIES.get('mysheet', 'jade') 
-            user.save()
-            profile.save()
-
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)  
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
             message = 'You did something right!'
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
       
-    return render(request, 'users/editprofile.html', {'form': form, 'status': message})
+    return render(request, 'users/editprofile.html', {'user_form': user_form, 'profile_form': profile_form, 'status': message})

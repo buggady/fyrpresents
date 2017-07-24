@@ -1,26 +1,40 @@
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit
+from address.forms import AddressField
+from django.contrib.auth.models import User
+from users.models import UserProfile
 
-class EditProfileForm(forms.Form):
-    #home_town = forms.CharField(max_length=100)
-    first_name = forms.CharField(max_length=100)
-    last_name = forms.CharField(max_length=100)
+class UserForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
 
-    helper = FormHelper()
-    helper.form_method = 'POST'
-    helper.form_id = 'editProfileForm'
-    helper.form_class = 'GeneralForm shake'
-    helper.form_action = 'edit_profile'
-    helper.form_show_labels = False
+        # If you pass FormHelper constructor a form instance
+        # It builds a default layout with all its fields
+        self.helper = FormHelper(self)
+        self.helper.form_id = 'userForm'
+        self.helper.form_class = 'GeneralForm shake'
+        self.helper.form_tag = False
 
-    helper.layout = Layout(
-        #Field('home_city', 
-        #    placeholder='Home Town'),
-        Field('first_name',
-            placeholder='First Name'),
-        Field('last_name',
-            placeholder='Last Name'),
+        #self.helper.layout.append(Submit('save', 'save', css_class='btn-system btn-large'))
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']
 
-        Submit('submit', 'Submit', css_class='btn-system btn-large')
-    )
+class ProfileForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+
+        # If you pass FormHelper constructor a form instance
+        # It builds a default layout with all its fields
+        self.helper = FormHelper(self)
+        self.helper.form_id = 'profileForm'
+        self.helper.form_class = 'GeneralForm shake'
+        self.helper.include_media = False
+        self.helper.form_tag = False
+
+        #self.helper.layout.append(Submit('save', 'save', css_class='btn-system btn-large'))
+
+    class Meta:
+        model = UserProfile
+        fields = ['home_address']

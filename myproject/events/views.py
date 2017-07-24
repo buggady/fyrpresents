@@ -105,7 +105,7 @@ class EventAddress(SingleObjectMixin, FormView):
         form = self.get_form(self.get_form_class())
         if form.is_valid():
             pre_address = form.cleaned_data['address']
-            tmp_address = Address.to_python(pre_address.raw, instance=pre_address)
+            tmp_address = Address.to_python(pre_address)
             #Refactor this one day, there is bug in django address that creates two addresses for no reason
             address_set = Address.objects.filter(raw=tmp_address)
             for address in address_set:

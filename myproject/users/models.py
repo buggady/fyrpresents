@@ -4,13 +4,14 @@ from django.contrib.auth.models import User
 from allauth.account.models import EmailAddress
 from events.models import Event, EventUserRel
 from allauth.socialaccount.models import SocialAccount
+from address.models import AddressField
 import hashlib
 
 class UserProfile(models.Model):
 
 	user = models.OneToOneField(User, related_name='profile')
-	#home_city = models.CharField(max_length=140, default='unknown', blank=True)
-	#color_theme = models.CharField(max_length=10, default='blue')
+	home_address = AddressField(related_name='home_address', blank=True, null=True)
+	color_theme = models.CharField(max_length=10, default='blue')
  
 	def __unicode__(self):
 		return "{}'s profile".format(self.user.username)
@@ -44,7 +45,7 @@ class UserProfile(models.Model):
 		if len(fb_uid):
 			return "https://graph.facebook.com/{}/picture?width=140&height=140".format(fb_uid[0].uid)
 	 
-		return "/static_files/images/fyrowl.JPG"
+		return "/static/images/fyrowl.JPG"
 
 	def profile_image_url_small(self):
 		fb_uid = SocialAccount.objects.filter(user_id=self.user.id, provider='facebook')
@@ -52,6 +53,6 @@ class UserProfile(models.Model):
 		if len(fb_uid):
 			return "https://graph.facebook.com/{}/picture?width=80&height=80".format(fb_uid[0].uid)
 	 
-		return "/static_files/images/fyrowl-small.JPG"
+		return "/static/images/fyrowl-small.JPG"
 
 User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])

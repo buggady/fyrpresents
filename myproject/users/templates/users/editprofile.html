@@ -4,6 +4,7 @@
 {% load crispy_forms_tags %}
 {% block title %}{% trans "Edit User Profile" %}{% endblock title %}
 {% block description %}{% trans "Form for editing your user profile and helping us build new content for our users." %}{% endblock %}
+{% block extra_head %}{{ profile_form.media }}{% endblock extra_head %}
 {% block content %}
 
 <!-- Start Page Banner -->
@@ -35,7 +36,12 @@
         <h4 class="classic-title"><span>Give us some details already</span></h4>
         
         <!-- Start Edit Profile Form -->
-        {% crispy form %}
+        <form action="{% url 'edit_profile' %}" class="GeneralForm shake" id="editProfileForm" method="POST">
+          {% csrf_token %}
+          {% crispy user_form %}
+          {% crispy profile_form %}
+          <input type="submit" value="save" class="btn-system btn-large"/>
+        </form>
         {{ status }}
         <!-- End Edit Profile Form -->
       </div>
