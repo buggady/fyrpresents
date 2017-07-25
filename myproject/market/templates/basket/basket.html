@@ -22,10 +22,10 @@
     {% trans "Basket" %}
 {% endblock %}
 
-{% block content %}
+{% block subcontent %}
     {# Use a partial template so that AJAX can be used to re-render basket #}
     {% include 'basket/partials/basket_content.html' %}
-{% endblock content %}
+{% endblock subcontent %}
 
 {% block onbodyload %}
     {{ block.super }}

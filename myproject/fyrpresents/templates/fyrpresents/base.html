@@ -173,32 +173,34 @@
               <ul class="nav navbar-nav navbar-right">
                 <li><a {% if 'home' in request.path %}class="active"{% endif %} href="{% url 'home' %}">Home</a></li>
                 {% if request.user.is_authenticated %}
-                    <li><a {% if 'events' in request.path %}class="active"{% endif %} href="{% url 'events' %}">Events</a>
-                      <ul class="dropdown">
-                        <li><a href="{% url 'fullcalendar' 'fyr-official-calendar' %}">Calendar</a></li>
-                      </ul>
-                    </li>
-                    {% if perms.users.fyr_member %}
+                  <li><a {% if 'events' in request.path %}class="active"{% endif %} href="{% url 'events' %}">Events</a>
+                    <ul class="dropdown">
+                      <li><a href="{% url 'fullcalendar' 'fyr-official-calendar' %}">Calendar</a></li>
+                    </ul>
+                  </li>
+                  {% if perms.users.fyr_member %}
                     {% if perms.users.fyr_developer %}
                       <li><a {% if 'mingle' in request.path %}class="active"{% endif %} href="{% url 'mingle' %}">Mingle</a></li>
                       <li><a {% if 'weblog' in request.path %}class="active"{% endif %} href="/weblog">Blog</a></li>
                       <li><a {% if 'market' in request.path %}class="active"{% endif %} href="/market">Market</a>
-                      <ul class="dropdown">
-                      {% if request.user.is_authenticated %}
-                        <li>
-                          {% if num_unread_notifications > 0 %}
+                      <li>
+                        <ul class="dropdown">
+                          <li>
+                            {% if num_unread_notifications > 0 %}
                               {# If user has new notifications - we change account link to go to inbox #}
                               <a href="{% url 'customer:notifications-inbox' %}">
-                                  <i class="icon-user"></i>
-                                  {% trans "Account" %}
-                                  <span class="label label-important">{{ num_unread_notifications }}</span>
+                                {% trans "Account" %}
+                                <span class="label label-important">{{ num_unread_notifications }}</span>
                               </a>
-                          {% else %}
-                              <a href="{% url 'customer:summary' %}"><i class="icon-user"></i> {% trans "Account" %}</a>
+                            {% else %}
+                              <a href="{% url 'customer:summary' %}">{% trans "Account" %}</a>
+                            {% endif %}
+                          </li>
+                          {% if request.user.is_staff or perms.partner.dashboard_access %}
+                            <li><a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a></li>
                           {% endif %}
-                        </li>
-                      {% endif %}
-                      </ul>
+                        </ul>
+                      </li>
                     {% endif %}
                     <li><a {% if 'profile' in request.path %}class="active"{% endif %} href="{% url 'userprofile' %}">Profile</a></li> 
                   {% endif %}
@@ -225,25 +227,24 @@
                   <li><a {% if 'mingle' in request.path %}class="active"{% endif %} href="{% url 'mingle' %}">Mingle</a></li>
                   <li><a {% if 'weblog' in request.path %}class="active"{% endif %} href="/weblog">Blog</a></li>
                   <li><a {% if 'market' in request.path %}class="active"{% endif %} href="/market">Market</a>
-                  <ul class="dropdown">
-                    {% if request.user.is_authenticated %}
-                    <li>
+                  <li>
+                    <ul class="dropdown">
+                      <li>
                         {% if num_unread_notifications > 0 %}
-                            {# If user has new notifications - we change account link to go to inbox #}
-                            <a href="{% url 'customer:notifications-inbox' %}">
-                                <i class="icon-user"></i>
-                                {% trans "Account" %}
-                                <span class="label label-important">{{ num_unread_notifications }}</span>
-                            </a>
+                          {# If user has new notifications - we change account link to go to inbox #}
+                          <a href="{% url 'customer:notifications-inbox' %}">
+                            {% trans "Account" %}
+                            <span class="label label-important">{{ num_unread_notifications }}</span>
+                          </a>
                         {% else %}
-                            <a href="{% url 'customer:summary' %}"><i class="icon-user"></i> {% trans "Account" %}</a>
+                          <a href="{% url 'customer:summary' %}">{% trans "Account" %}</a>
                         {% endif %}
-                    </li>
-                    {% if user.is_staff or perms.partner.dashboard_access %}
-                        <li><a href="{% url 'dashboard:index' %}"><i class="icon-list-ul"></i> {% trans "Dashboard" %}</a></li>
-                    {% endif %}
-                {% endif %}
-                  </ul></li>
+                      </li>
+                      {% if request.user.is_staff or perms.partner.dashboard_access %}
+                        <li><a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a></li>
+                      {% endif %}
+                    </ul>
+                  </li>
                 {% endif %}
                 <li><a {% if 'profile' in request.path %}class="active"{% endif %} href="{% url 'userprofile' %}">Profile</a></li>
               {% endif %}

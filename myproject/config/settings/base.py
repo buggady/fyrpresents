@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'schedule',
     'address',
     'annoying',
+    'paypal',
     'endless_pagination',
     'admin_tools',
     'admin_tools.theming',
@@ -185,3 +186,27 @@ HAYSTACK_CONNECTIONS = {
 
 OSCAR_SHOP_NAME = "The Rave Trade"
 OSCAR_SHOP_TAGLINE = "Share your art, check out other's art!"
+OSCAR_DEFAULT_CURRENCY = "USD"
+OSCAR_FROM_EMAIL = "accounts@fyrpresents.com"
+OSCAR_INITIAL_ORDER_STATUS = 'Pending'
+OSCAR_INITIAL_LINE_STATUS = 'Pending'
+OSCAR_ORDER_STATUS_PIPELINE = {
+    'Pending': ('Being processed', 'Cancelled',),
+    'Being processed': ('Processed', 'Cancelled',),
+    'Cancelled': (),
+}
+
+PAYPAL_CURRENCY = "USD"
+
+from django.utils.translation import ugettext_lazy as _
+OSCAR_DASHBOARD_NAVIGATION.append(
+    {
+        'label': _('PayPal'),
+        'icon': 'icon-globe',
+        'children': [
+            {
+                'label': _('Express transactions'),
+                'url_name': 'paypal-express-list',
+            },
+        ]
+    })

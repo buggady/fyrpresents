@@ -30,46 +30,42 @@
     <div class="project-page row">
       <!-- Start Single Project Slider -->
       <div class="project-media col-md-8">
-        <div class="touch-slider project-slider" style="height:400px">
-          <div class="item" style="background-color:gray">
-            <a class="lightbox" title="No one likes you" href="/static/events/images/raver-paradise-2017/raver-paradise1-2017.jpg" data-lightbox-gallery="gallery2">
-              <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
-              <div class="crop" style="display:block;margin:auto">
-                <img src="/static/events/images/raver-paradise-2017/raver-paradise1-2017.jpg" >
-              </div>
-            </a>
+      {% if perms.users.fyr_member %}
+        <h4><span>Ratchet of the Month! </span></h4>
+        <p> Ratchet of the Month is a high honor given to the member who displayed the highest level of ratchetivity. This position is handed out to the member who acted in a manner that was the most embarrassing and/or disgusting of all members. Congratulations, you played yourself and we are not going to let you forget it.</p>
+        <div class="hr5" style="margin-top:15px; margin-bottom:15px;"></div>
+        <div class="row">
+          <div class="col-md-6">
+            <img src="/media/photologue/photos/july-ratchet.JPG"> 
           </div>
-          <div class="item" style="background-color:gray">
-            <a class="lightbox" title="Stuff Eventually" href="/static/events/images/raver-paradise-2017/raver-paradise2-2017.jpg" data-lightbox-gallery="gallery2">
-              <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
-              <div class="crop" style="display:block;margin:auto">
-                <img src="/static/events/images/raver-paradise-2017/raver-paradise2-2017.jpg" >
-              </div>
-            </a>
-          </div>
-          <div class="item" style="background-color:gray">
-            <a class="lightbox" title="So much stuff" href="/static/events/images/raver-paradise-2017/raver-paradise3-2017.jpg" data-lightbox-gallery="gallery2">
-              <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
-              <div class="crop" style="display:block;margin:auto">
-                <img src="/static/events/images/raver-paradise-2017/raver-paradise3-2017.jpg" >
-              </div>
-            </a>
+          <div class="col-md-6" >
+            <h4><span>Dom Salas</span></h4>
+            <ul style="list-style-type:disc">
+              <li>Seriously dude, things are not looking good for you when you are dubbed this honor within one month of meeting us. Dom weaseled his way into FYR after Electric Forest via Hannah...He is dubbed ratchet of the month for coming through Hannah.</li>
+              <li>Dom does not live in Texas, big strike against you!</li>
+              <li>Dom and Michael made a bet where loser would have to bite a rotten carrot. Dom lost and refused to honor his end of the bet. Even if it probably would have hospitalized you, you should bite the carrot.</li>
+              <li>Dom once asked Hannah Case what "FYR" meant at Middlelands, and then replied "I don't even think I know this many people..let alone people who party like this". </li>
+              <li>Another memorable quote from Dom, "Ah, I see why I like y'all so much, y'all are a bunch of dicks!"</li>
+              <li>With his vibrant personality, good vibes, and relentless positivity, we are glad to welcome Dom to FYR. You owe us a Gauntlet! You must be our friend! Please don't leave us!</li>
+            </ul>
           </div>
         </div>
+      {% else %}
+        <p>Must be FYR Member to view this content</p>
+      {% endif %}
+
       </div>
       <!-- End Single Project Slider -->
 
       <!-- Start Profile Content -->
       <div class="project-content col-md-4">
-        <h4><span id="fullname"></span></h4>
-        <p>This is kinda your own personal space</p>
-        <a href="{% url 'edit_profile' %}" class="btn btn-system">Edit Profile!</a>
         <br>
         <h4><span>About Yourself</span></h4>
         <ul>
           <li><strong>Name:</strong> {{ request.user.first_name}} {{ request.user.last_name}}</li>
           <li><strong>Email:</strong> {{ request.user.email }}</li>
           <li><strong>Home Address:</strong> {{ request.user.profile.home_address}}</li>
+          <a href="{% url 'edit_profile' %}" class="btn btn-system">Edit Profile!</a>
           {{ status }}
         </ul>
         <h4><span>Best Travel Buddies</span></h4>

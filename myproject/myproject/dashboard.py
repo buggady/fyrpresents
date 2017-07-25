@@ -65,7 +65,12 @@ class CustomIndexDashboard(Dashboard):
             models=('djstripe.*',)
         ))
 
-        # append a recent actions module
+        self.children.append(modules.AppList(
+            title='Market List',
+            models=('oscar.*',)
+        ))
+
+         # append a recent actions module
         self.children.append(modules.RecentActions(_('Recent Actions'), 10))
 
         # append an app list module for "Applications"

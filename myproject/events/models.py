@@ -28,7 +28,7 @@ class EventProfile(models.Model):
     category = models.CharField(max_length=14, choices=CATEGORY_CHOICES, default='general')
     private = models.BooleanField(default=True)
     address = AddressField(related_name='address', blank=True, null=True)
-    total_price = models.IntegerField(default="0")
+    total_price = models.OneToOneField(default="0")
     host = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     facebook_event_id = models.CharField(max_length=100, null=True, blank=True)
     facebook_fyr_event_id = models.CharField(max_length=100, null=True, blank=True)

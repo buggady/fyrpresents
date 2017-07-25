@@ -12,15 +12,6 @@
 
 {% block headertext %}{{ summary }}{% endblock %}
 
-{% block breadcrumbs %}
-    <ul class="breadcrumb">
-        <li>
-            <a href="{{ homepage_url }}">{% trans "Home" %}</a>
-        </li>
-        <li class="active">{{ summary }}</li>
-    </ul>
-{% endblock breadcrumbs %}
-
 {% block column_left %}
     {% category_tree as tree_categories %}
     {% if tree_categories %}
@@ -57,7 +48,7 @@
     {% endif %}
 {% endblock %}
 
-{% block content %}
+{% block subcontent %}
 
     <form method="get" class="form-horizontal">
         {# Render other search params in a hidden block #}
@@ -109,7 +100,7 @@
         <p class="nonefound">{% trans "No products found." %}</p>
     {% endif %}
 
-{% endblock content %}
+{% endblock subcontent %}
 
 {% block onbodyload %}
     {{ block.super }}

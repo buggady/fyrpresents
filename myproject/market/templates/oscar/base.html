@@ -24,8 +24,8 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <h2>Market</h2>
-            <p>The Rave Trade</p>
+            <h2>The Rave Trade</h2>
+            <p>Share your art, see some art, become the art!</p>
           </div>
           <div class="col-md-6">
             <ul class="breadcrumbs">
@@ -40,13 +40,12 @@
 
     <div id="content">
         <div class="container">
-    {# Main content goes in this 'layout' block #}
-    {% block layout %}{% endblock %}
+          {# Main content goes in this 'layout' block #}
+          {% block layout %}{% endblock %}
         </div>
     </div>
 
-    {# Additional JS scripts #}
-    {% block extrascripts %}{% endblock %}
+    
 
     {# Block for body onload functions #}
     <script type="text/javascript">
@@ -59,6 +58,15 @@
     <!-- {% trans "Version:" %} {{ version }} -->
 {% endblock content %}
 
-{# Local scripts #}
-{% block javascripts %}
-{% endblock javascripts %}
+{% block javascript %}
+
+  {# Scripts loaded from a CDN. #}
+  {% block cdn_scripts %}{% endblock %}
+
+  {# Local scripts #}
+  {% block scripts %}{% endblock scripts %}
+
+  {# Additional JS scripts #}
+  {% block extrascripts %}{% endblock %}
+  
+{% endblock javascript %}
