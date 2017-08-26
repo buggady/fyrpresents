@@ -3,6 +3,7 @@
 {% load static %}
 {% load comments %}
 {% load random_color %}
+{% load product_tags %}
 {% block title %}{{ eventprofile.event.title}}{% trans " Event Details" %}{% endblock title %}
 {% block description %}{% trans "Page display details of an upcoming event that FYR plans to attend." %}{% endblock %}
 {% block extra_head %}{{ form.media }}{% endblock extra_head %}
@@ -48,7 +49,7 @@
           <h4><span>Quick Details</span></h4>
           <ul> 
             <li><strong>What's Going On: </strong>{{ eventprofile.event.description }}</li>
-            <li><strong>Dates:</strong><a href="{{eventprofile.website}}"> {{ eventprofile.event.start|date }} to {{ eventprofile.event.end|date }}</a></li>
+            <li><strong>Dates: </strong>{{ eventprofile.event.start|date }} to {{ eventprofile.event.end|date }}</li>
             {% if eventprofile.address %}
               <li><strong>Address: </strong>{{ eventprofile.address }}</li>
             {% else %}
@@ -59,8 +60,8 @@
                 <input type="submit"></input>
               </form> </li>
             {% endif %}
-            <li><strong>General Cost:</strong> ${{ eventprofile.total_price }}</li>
-            {% if eventprofile.website %}<li><strong>Website:</strong><a href="{{eventprofile.website}}"> {{eventprofile.event.title}}</a> </li>{% endif %}
+            <!--<li><input type="button" class="btn-system btn-small btn-rsvp" > Tickets<</li>-->
+            {% if eventprofile.website %}<li><strong>Website: </strong><a href="{{eventprofile.website}}"> {{eventprofile.event.title}}</a> </li>{% endif %}
             <li>
              {% if request.user.is_authenticated %}
                   <input type="button" class="btn-system btn-small btn-rsvp" name="{{ eventprofile.slug }}" value="{{ rsvp_button_value }}" />
@@ -128,7 +129,7 @@
       
     <div class="hr5" style="margin-top:45px; margin-bottom:35px;"></div>
     
-    <h4 class="classic-title"><span>Event Photos</span></h4>
+    <h4 class="classic-title"><span>Photos</span></h4>
     {% if is_current_user_registered %}
       {% if eventprofile.gallery.photo_count > 0 %}
         <div class="row">
@@ -157,10 +158,7 @@
     {% if perms.users.fyr_member %}
       <div class="row">
         <h4 class="classic-title"><span>Travel Plans</span></h4>
-        <div class="message-box gradient-{% random_color %} col-md-3" >
-          <h5 class="classic-title"><span>For FYR Only</span></h5>
-          Found a bunch of cool software stuff to automate our budgeting and travel plans...Stay tuned.
-        </div>
+         <!-- {% render_product eventprofile.tickets %} -->
       </div>
     {% endif %}
 

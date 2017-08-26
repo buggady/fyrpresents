@@ -50,7 +50,6 @@
 					<!-- Start Recent Projects Carousel -->
 		    		<ul id="portfolio-list" data-animated="fadeIn">
 		    	    	{% for event in object_list %}
-			            	{% if not event.profile.in_the_past %}
 			    	    	<li>
 			    	    		{% with 'events/images/'|add:event.profile.slug|add:'.jpg' as image_static %}
 			      				<div class="crop">
@@ -66,7 +65,6 @@
 			                	</div> 
 			                	{% endwith %}
 			              	</li>
-			            	{% endif %}
 		    			{% endfor %}
 					</ul>
 		      	</div>
@@ -85,29 +83,27 @@
 			    		We have attended countless events and it is super hard for me to track them all down. Do you know an event I'm missing? Fill out <code><a href="{% url 'submit_past_event' %}"> <strong>this form</strong></a></code> and, like magic, it might just get added to list.
 			    	</div>
 			    	{% endif %}
-				    {% for event in object_list %}
-				      	{% if event.profile.in_the_past %}
-				      		{% with 'events/images/'|add:event.profile.slug|add:'.jpg' as image_static %}
-						      	<div class="portfolio-item item">
-							        <div class="portfolio-border">
-							            <div class="portfolio-thumb crop-event" >	
-							              	<a href="{% url 'past_event_details' event.profile.slug %}">
-							              		<!--<a class="lightbox" data-lightbox-type="ajax" href="https://vimeo.com/78468485">
-							                	<div class="thumb-overlay"><i class="fa fa-play"></i></div> -->
-							                	<img src="{% static image_static %}" alt="" />
-							                </a>
-							            </div>
-							            <div class="portfolio-details">
-							                <a href="{% url 'past_event_details' event.profile.slug %}">
-							                	<h4>{{event.title}}</h4>
-							                	<span>{{event.start|date}}</span>
-							                </a>
-							                <a href="#" class="like-link"><i class="fa fa-user-secret fa-2"></i><span>{{event.profile.guest_count}}</span></a>
-							            </div>
-							        </div>
-							    </div>
-	                		{% endwith %}
-				    	{% endif %}
+				    {% for event in past_events_list %}
+			      		{% with 'events/images/'|add:event.profile.slug|add:'.jpg' as image_static %}
+					      	<div class="portfolio-item item">
+						        <div class="portfolio-border">
+						            <div class="portfolio-thumb crop-event" >	
+						              	<a href="{% url 'past_event_details' event.profile.slug %}">
+						              		<!--<a class="lightbox" data-lightbox-type="ajax" href="https://vimeo.com/78468485">
+						                	<div class="thumb-overlay"><i class="fa fa-play"></i></div> -->
+						                	<img src="{% static image_static %}" alt="" />
+						                </a>
+						            </div>
+						            <div class="portfolio-details">
+						                <a href="{% url 'past_event_details' event.profile.slug %}">
+						                	<h4>{{event.title}}</h4>
+						                	<span>{{event.start|date}}</span>
+						                </a>
+						                <a href="#" class="like-link"><i class="fa fa-user-secret fa-2"></i><span>{{event.profile.guest_count}}</span></a>
+						            </div>
+						        </div>
+						    </div>
+                		{% endwith %}
 				    {% endfor %}
 		    	</div>
 		    	<br>

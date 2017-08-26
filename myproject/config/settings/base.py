@@ -6,6 +6,7 @@ Django settings for fyrpresents project.
 import sys, os
 from unipath import Path
 from secrets import *
+from decimal import Decimal as D
 
 from oscar.defaults import *
 
@@ -36,7 +37,6 @@ INSTALLED_APPS = [
     'newsletter',
     'django_premailer',
     'django_extensions',
-    'djstripe',
     'vote',
     'photologue',
     'sortedm2m',
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'address',
     'annoying',
     'paypal',
+    'oscar_accounts',
     'endless_pagination',
     'admin_tools',
     'admin_tools.theming',
@@ -65,7 +66,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-] + get_core_apps()
+] + get_core_apps(['market.checkout'])
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,11 +83,13 @@ MIDDLEWARE_CLASSES = [
     
 ROOT_URLCONF = 'config.urls'
 
+from oscar_accounts import TEMPLATE_DIR as ACCOUNTS_TEMPLATE_DIR
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR.child("templates"),
+            ACCOUNTS_TEMPLATE_DIR,
         ],
         'OPTIONS': {
             'context_processors': [
@@ -136,7 +139,7 @@ MEDIA_ROOT = BASE_DIR.parent.child("media")
 MEDIA_URL = '/media/'
 
 AUTHENTICATION_BACKENDS = (
-    'oscar.apps.customer.auth_backends.EmailBackend',
+    #'oscar.apps.customer.auth_backends.EmailBackend',
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
     # `allauth` specific authentication methods, such as login by e-mail
@@ -162,8 +165,6 @@ EMAIL_USE_SSL = True
 #Email Details Secret
 DEFAULT_FROM_EMAIL = 'info@fyrpresents.com'
 EMAIL_PORT = 465
-
-DJSTRIPE_INVOICE_FROM_EMAIL="accounts@fyrpresents.com"
 
 NEWSLETTER_CONFIRM_EMAIL = False
 
@@ -198,6 +199,11 @@ OSCAR_ORDER_STATUS_PIPELINE = {
 
 PAYPAL_CURRENCY = "USD"
 
+ACCOUNTS_UNIT_NAME = 'Giftcard'
+ACCOUNTS_UNIT_NAME_PLURAL = 'Giftcards'
+ACCOUNTS_MIN_LOAD_VALUE = D('30.00')
+ACCOUNTS_MAX_ACCOUNT_VALUE = D('1000.00')
+
 from django.utils.translation import ugettext_lazy as _
 OSCAR_DASHBOARD_NAVIGATION.append(
     {
@@ -207,6 +213,29 @@ OSCAR_DASHBOARD_NAVIGATION.append(
             {
                 'label': _('Express transactions'),
                 'url_name': 'paypal-express-list',
+            },
+        ]
+    })
+OSCAR_DASHBOARD_NAVIGATION.append(
+    {
+        'label': 'Accounts',
+        'icon': 'icon-globe',
+        'children': [
+            {
+                'label': 'Accounts',
+                'url_name': 'accounts-list',
+            },
+            {
+                'label': 'Transfers',
+                'url_name': 'transfers-list',
+            },
+            {
+                'label': 'Deferred income report',
+                'url_name': 'report-deferred-income',
+            },
+            {
+                'label': 'Profit/loss report',
+                'url_name': 'report-profit-loss',
             },
         ]
     })

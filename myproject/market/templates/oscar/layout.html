@@ -38,9 +38,9 @@
                 </div>
             </div>
         </div>
-        {% block navigation %}
+        <!-- {% block navigation %}
             {% include "partials/nav_primary.html" %}
-        {% endblock %}
+        {% endblock %} -->
     </header>
 
     {# Main content of page - other layout templates may override this block #}
@@ -81,7 +81,7 @@
 {% block scripts %}
     {{ block.super }}
     <!-- Oscar -->
-    <script src="{% static 'oscar/js/oscar/ui.js' %}"" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static 'oscar/js/oscar/ui.js' %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static 'oscar/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js' %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static 'oscar/js/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.all.js' %}" type="text/javascript" charset="utf-8"></script>
 {% endblock %}

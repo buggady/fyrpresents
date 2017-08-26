@@ -549,6 +549,10 @@ ul.social-list li a.twitter:hover {
 	background-color: #63CDF1;
 }
 
+ul.social-list li a.soundcloud:hover {
+	background-color: #FF7700;
+}
+
 ul.social-list li a.google:hover {
 	background-color: #F16261;
 }
@@ -570,7 +574,7 @@ ul.social-list li a.flickr:hover {
 }
 
 ul.social-list li a.instgram:hover {
-	background-color: #4D4F54;
+	background-color: #C32AA3;
 }
 
 ul.social-list li a.vimeo:hover {
@@ -2825,6 +2829,10 @@ ul.icons-list li i {
 	background-color: #63CDF1;
 }
 
+.team-member .member-socail a.soundcloud:hover i {
+	background-color: #FF7700;
+}
+
 .team-member .member-socail a.gplus:hover i {
 	background-color: #F16261;
 }
@@ -2841,8 +2849,8 @@ ul.icons-list li i {
 	background-color: #E474AF;
 }
 
-.team-member .member-socail a.instagramm:hover i {
-	background-color: #4D4F54;
+.team-member .member-socail a.instgram:hover i {
+	background-color: #C32AA3;
 }
 
 .team-member.modern .member-info {
@@ -4348,6 +4356,10 @@ footer a:hover {
 	background-color: #63CDF1;
 }
 
+.social-widget ul.social-icons li a.soundcloud:hover i {
+	background-color: #FF7700;
+}
+
 .social-widget ul.social-icons li a.google:hover i {
 	background-color: #F16261;
 }
@@ -4369,7 +4381,7 @@ footer a:hover {
 }
 
 .social-widget ul.social-icons li a.instgram:hover i {
-	background-color: #4D4F54;
+	background-color: #C32AA3;
 }
 
 .social-widget ul.social-icons li a.vimeo:hover i {

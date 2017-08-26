@@ -2,7 +2,7 @@ from django.contrib import admin
 from events.models import EventProfile, EventUserRel, EventIdeas
 
 class EventProfileAdmin(admin.ModelAdmin):
-    list_display = ('get_title', 'slug', 'category', 'total_price', 'facebook_event_id', 'host')
+    list_display = ('get_title', 'slug', 'category', 'products_for_sale', 'facebook_event_id', 'host')
 
     def get_title(self, obj):
         return obj.event.title

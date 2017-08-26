@@ -34,10 +34,12 @@ class EventsOverviewView(ListView):
     template_name = 'events/events-overview.html'
 
     def get_queryset(self):
-        return Event.objects.all().order_by("-start")[:25]
+        return Event.objects.filter(end__gte=datetime.date.today()).order_by("end")
 
     def get_context_data(self, **kwargs):
         context = super(EventsOverviewView, self).get_context_data(**kwargs)
+
+        context['past_events_list'] = Event.objects.filter(end__lte=datetime.date.today()).order_by("title")
         context['event_ideas_list'] = EventIdeas.objects.all()
         return context
 
@@ -96,11 +98,11 @@ class EventAddress(SingleObjectMixin, FormView):
     template_name = 'events/event-details.html'
     form_class = EnterAddressForm
     model = EventProfile
+    message = ' '
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated():
             return HttpResponseForbidden()
-        message = ' '
         self.object = self.get_object()
         form = self.get_form(self.get_form_class())
         if form.is_valid():

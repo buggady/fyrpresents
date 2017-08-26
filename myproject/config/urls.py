@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.conf import settings
 from django.contrib.auth.views import logout
 from oscar.app import application
+from oscar_accounts.dashboard.app import application as accounts_app
+from paypal.express.dashboard.app import application as paypal_app
 
 urlpatterns = [
 	url(r'^', include('fyrpresents.urls')),
@@ -15,12 +17,12 @@ urlpatterns = [
 	url(r'^newsletter/', include('newsletter.urls')),
 	url(r'^calendar/', include('schedule.urls')),
 	url(r'^weblog/', include('zinnia.urls', namespace="zinnia")),
-	url(r'^payments/', include('djstripe.urls', namespace="djstripe")),
 	url(r'^comments/', include('django_comments_xtd.urls')),
 	url(r'^i18n/', include('django.conf.urls.i18n')),
 	url(r'^market/', include(application.urls)),
 	url(r'^checkout/paypal/', include('paypal.express.urls')),
-    url(r'^dashboard/paypal/express/', include(application.urls)),
+    url(r'^dashboard/paypal/express/', include(paypal_app.urls)),
+    url(r'^dashboard/accounts/', include(accounts_app.urls)),
 	url(r'^admin_tools/', include('admin_tools.urls')),
 	url(r'^admin/', admin.site.urls),
 ] 

@@ -117,10 +117,10 @@
                   </li>
                   <li>
                     <a class="flickr itl-tooltip" data-placement="bottom" title="Flickr" href="#"><i class="fa fa-flickr"></i></a>
-                  </li>
-                  <li>
-                    <a class="tumblr itl-tooltip" data-placement="bottom" title="Tumblr" href="#"><i class="fa fa-tumblr"></i></a>
                   </li> -->
+                  <li>
+                    <a class="soundcloud" target="_blank" data-placement="bottom" title="SoundCloud" href="https://soundcloud.com/fyrcrew/"><i class="fa fa-soundcloud"></i></a>
+                  </li>
                   <li>
                     <a class="facebook" data-placement="bottom" title="Facebook" href="#"><i class="fa fa-facebook"></i></a>
                   </li>
@@ -128,7 +128,7 @@
                     <a class="twitter" data-placement="bottom" title="Twitter" href="#"><i class="fa fa-twitter"></i></a>
                   </li>
                   <li>
-                    <a class="instgram" data-placement="bottom" title="Instagram" href="https://www.instagram.com/fyrcrew/"><i class="fa fa-instagram"></i></a>
+                    <a class="instgram" target="_blank" data-placement="bottom" title="Instagram" href="https://www.instagram.com/fyrcrew/"><i class="fa fa-instagram"></i></a>
                   </li>
                    
                   <!--<li>
@@ -139,9 +139,10 @@
                   </li> -->
                   <li>
                   {% if request.user.is_authenticated %}
-                    <a class="instgram" data-placement="bottom" title="Log Out" href="/accounts/logout/" style="padding:7px 0 7px 0">Log Out</a>
+                    <a class="skype" data-placement="bottom" title="Log Out" href="/accounts/logout/" style="padding:7px 0 7px 0">Log Out</a>
                   {% else %}
-                    <a id="login" class="btn btn-system" style="color:white">Sign In</a>
+                    <!--<a id="login" class="btn btn-system" style="color:white">Sign In</a>-->
+                    <a class="btn btn-system" title="Sign In" href="/accounts/login/">Sign In</a>
                   {% endif %}
                   </li>
                 </ul>
@@ -183,23 +184,6 @@
                       <li><a {% if 'mingle' in request.path %}class="active"{% endif %} href="{% url 'mingle' %}">Mingle</a></li>
                       <li><a {% if 'weblog' in request.path %}class="active"{% endif %} href="/weblog">Blog</a></li>
                       <li><a {% if 'market' in request.path %}class="active"{% endif %} href="/market">Market</a>
-                      <li>
-                        <ul class="dropdown">
-                          <li>
-                            {% if num_unread_notifications > 0 %}
-                              {# If user has new notifications - we change account link to go to inbox #}
-                              <a href="{% url 'customer:notifications-inbox' %}">
-                                {% trans "Account" %}
-                                <span class="label label-important">{{ num_unread_notifications }}</span>
-                              </a>
-                            {% else %}
-                              <a href="{% url 'customer:summary' %}">{% trans "Account" %}</a>
-                            {% endif %}
-                          </li>
-                          {% if request.user.is_staff or perms.partner.dashboard_access %}
-                            <li><a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a></li>
-                          {% endif %}
-                        </ul>
                       </li>
                     {% endif %}
                     <li><a {% if 'profile' in request.path %}class="active"{% endif %} href="{% url 'userprofile' %}">Profile</a></li> 
@@ -217,33 +201,16 @@
           <ul class="wpb-mobile-menu">
             <li><a {% if 'home' in request.path %}class="active"{% endif %} href="{% url 'home' %}">Home</a></li>
             {% if request.user.is_authenticated %}
-                <li><a {% if 'events' in request.path %}class="active"{% endif %} href="{% url 'events' %}">Events</a>
-                  <ul class="dropdown">
-                    <li><a href="{% url 'fullcalendar' 'fyr-official-calendar' %}">Calendar</a></li>
-                  </ul>
-                </li>
-                {% if perms.users.fyr_member %}
+              <li><a {% if 'events' in request.path %}class="active"{% endif %} href="{% url 'events' %}">Events</a>
+                <ul class="dropdown">
+                  <li><a href="{% url 'fullcalendar' 'fyr-official-calendar' %}">Calendar</a></li>
+                </ul>
+              </li>
+              {% if perms.users.fyr_member %}
                 {% if perms.users.fyr_developer %}
                   <li><a {% if 'mingle' in request.path %}class="active"{% endif %} href="{% url 'mingle' %}">Mingle</a></li>
                   <li><a {% if 'weblog' in request.path %}class="active"{% endif %} href="/weblog">Blog</a></li>
                   <li><a {% if 'market' in request.path %}class="active"{% endif %} href="/market">Market</a>
-                  <li>
-                    <ul class="dropdown">
-                      <li>
-                        {% if num_unread_notifications > 0 %}
-                          {# If user has new notifications - we change account link to go to inbox #}
-                          <a href="{% url 'customer:notifications-inbox' %}">
-                            {% trans "Account" %}
-                            <span class="label label-important">{{ num_unread_notifications }}</span>
-                          </a>
-                        {% else %}
-                          <a href="{% url 'customer:summary' %}">{% trans "Account" %}</a>
-                        {% endif %}
-                      </li>
-                      {% if request.user.is_staff or perms.partner.dashboard_access %}
-                        <li><a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a></li>
-                      {% endif %}
-                    </ul>
                   </li>
                 {% endif %}
                 <li><a {% if 'profile' in request.path %}class="active"{% endif %} href="{% url 'userprofile' %}">Profile</a></li>
@@ -291,10 +258,10 @@
                   </li>
                   <li>
                     <a class="flickr" href="#"><i class="fa fa-flickr"></i></a>
-                  </li>
-                  <li>
-                    <a class="tumblr" href="#"><i class="fa fa-tumblr"></i></a>
                   </li> -->
+                  <li>
+                    <a class="soundcloud" href="https://soundcloud.com/fyrcrew/"><i class="fa fa-soundcloud"></i></a>
+                  </li> 
                   <li>
                     <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
                   </li>
