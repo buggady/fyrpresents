@@ -1,7 +1,6 @@
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit
-from address.forms import AddressField
 
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100)
@@ -28,6 +27,3 @@ class ContactForm(forms.Form):
 
         Submit('submit', 'Submit', css_class='btn-system btn-large')
     )
-
-class EnterAddressForm(forms.Form):
-    address = AddressField()

@@ -4,13 +4,11 @@ from django.contrib.auth.models import User
 from allauth.account.models import EmailAddress
 from events.models import Event, EventUserRel
 from allauth.socialaccount.models import SocialAccount
-from address.models import AddressField
 import hashlib
 
 class UserProfile(models.Model):
 
 	user = models.OneToOneField(User, related_name='profile')
-	home_address = AddressField(related_name='home_address', blank=True, null=True)
 	color_theme = models.CharField(max_length=10, default='blue')
  
 	def __unicode__(self):

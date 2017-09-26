@@ -10,7 +10,6 @@ urlpatterns = [
 	url(r'^', include('fyrpresents.urls')),
 	url(r'^events/', include('events.urls')),
 	url(r'^user/', include('users.urls')),
-	url(r'^mingle/', include('mingle.urls')),
 	url(r'^accounts/logout/$', logout,{'next_page': '/'}),
 	url(r'^accounts/', include('allauth.urls')),
 	url(r'^photologue/', include('photologue.urls', namespace='photologue')),

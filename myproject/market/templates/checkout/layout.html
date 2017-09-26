@@ -41,7 +41,7 @@
                 {% endfor %}
             {% endblock %}
 
-            {% block content %}{% endblock %}
+            {% block subcontent %}{% endblock %}
 
             <div id="promotions">
                 {% for promotion in promotions_page %}
@@ -50,5 +50,4 @@
             </div>
         </div><!-- /page_inner -->
     </div>
-    {% include "partials/footer_checkout.html" %}
 {% endblock %}

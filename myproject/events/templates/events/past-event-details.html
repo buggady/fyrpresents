@@ -48,10 +48,6 @@
             <ul> 
               <li>{{ eventprofile.event.description }}</li>
               <li><strong>Date:</strong> {{ eventprofile.event.start|date }}</li>
-              <li><strong>Host:</strong> {{ eventprofile.host.first_name }}</li>
-              <li><strong>Location:</strong></li>
-              <li><strong>Total Price:</strong> $</li>
-              <li><strong>Website:</strong> {{eventprofile.website}}</li>
               <li>
                 {% if request.user.is_authenticated %}
                     <input type="button" class="btn-system btn-small btn-rsvp" name="{{ eventprofile.slug }}" value="{{ rsvp_button_value }}" />
@@ -63,185 +59,13 @@
               </li>
               {% endif %}
             </ul>
-            <!--<div class="post-share">
-              <span>Share This:</span>
-              <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
-              <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
-              <a class="gplus" href="#"><i class="fa fa-google-plus"></i></a>
-              <a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a>
-              <a class="mail" href="#"><i class="fa fa-envelope"></i></a>
-            </div>-->
           </div>
-          <!-- End Project Content -->
         </div>  
-      {% endwith %}
-    
+      {% endwith %}     
 
       <div class="hr5" style="margin-top:45px; margin-bottom:35px;"></div>
 
-      <h4 class="classic-title"><span>Facebook Event Details</span></h4>
-      {% if is_current_user_registered %}
-        {% if eventprofile.facebook_event_id %}
-          <pre style="max-height:200px">{{ fb_description }}</pre>
-          <br>
-          {% if perms.users.fyr_developer %}
-           <!-- Start Recent Projects Carousel -->
-          <h4 class="classic-title"><span>Facebook Guest List</span></h4>
-          
-          <!-- Start Team Members -->
-          <div class="row">
-            {% for guest in fb_guest_list.data %}
-            <div class="col-md-2 col-xs-6">
-              <div class="team-member">
-                <!-- Member Photo, Name & Position -->
-                <div class="member-photo">
-                  <div class="crop-user">
-                    <a href={{guest.link}}  target="_blank" >
-                      <img src="{{guest.picture.data.url}}" alt="User Facebook Profile Picture"/>
-                    </a>
-                  </div>
-                  <div class="member-name">{{guest.name}}</div>
-                  <!-- Member Words -->
-                  <!-- <div class="member-info">
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore fugiat.</p>
-                  </div>-->
-                  <!-- Member Social Links -->
-                  <!--<div class="member-socail">
-                    <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
-                    <a class="gplus" href="#"><i class="fa fa-google-plus"></i></a>
-                    <a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a>
-                    <a class="flickr" href="#"><i class="fa fa-flickr"></i></a>
-                    <a class="mail" href="#"><i class="fa fa-envelope"></i></a>
-                  </div> -->
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-          <br>
-          
-          <div class="row">
-            {% for photo in fb_photos.data %} 
-              <div class="col-md-2 col-sm-6 col-xs-3">
-                <a href={{photo.link}}  target="_blank" >
-                  <img src={{photo.picture}} class="thumbnail" alt="facebook event photo">
-                </a>
-              </div>
-            {% endfor %}
-          </div>
-          <br>
-          <div class="latest-posts-classic">
-          	{% with fb_feed.data as posts %}
-          	{% paginate posts %}
-          	{% for post in posts %} 
-              <div class="row">
-         			<div class="col-md-4">
-           				<div class="profile-info">
-		                    <div class="profile-photo">
-		                      <img src="{{ post.from.id }}" />
-		                    </div>
-		                    <div class="profile-name">
-		                      <div>
-		                        <a href="https://fb.com/{{ post.id }}" target="_blank">{{ post.from.name }}</a>
-		                          shared a 
-		                          <a href="{{ link }}" target="_blank">{{ post.type }}
-		                        </a>
-		                      </div>
-		                      <div class="time-ago">A Long Time Ago</div>
-		                    </div>
-		                </div>
-          			  	<div class="profile-message">{{ post.message }}</div>
-          		  	</div>
-	                <div class="col-md-8">
-	                  <a href="{{ link }}" target="_blank" class="post-link">
-	                    <div class="post-content">
-	                      {% if post.type == "status" %}
-	                        <div class="post-status">
-	                            View on Facebook
-	                        </div>
-	                      {% elif post.type == "photo" %}
-	                        <img src="https://graph.facebook.com/{{ post.object_id }}/picture" />
-	                      {% else %}
-	                        {% if post.picture %}
-	                          <div class="post-picture">
-	                            <img src="{{ post.picture_url }}" />
-	                          </div>
-	                        {% endif %}
-	                        <div class="post-info">
-	                          <div class="post-info-name">{{ post.name }}</div>
-	                          <div class="post-info-description">{{ post.description }}</div>
-	                        </div>
-	                      {% endif %}
-	                    </div>
-	                  </a>
-	                </div>
-	          	</div>
-    	        <hr />
-
-    	        <div class="col-sm-6 post-row">
-                <div class="left-meta-post">
-                  <div class="post-date"><span class="day">{{ post.created_time|timestamp_to_time|date:"d" }}</span><span class="month">{{ post.created_time|timestamp_to_time|date:"M" }}</span></div>
-                  <div class="post-type"><i class="fa fa-picture-o"></i></div>
-                </div>
-                <h3 class="post-title"><a href="#">{{ post.from.name }}</a></h3>
-                <div class="post-content">
-                  <p>{{post.message}}</p>
-                </div>
-              </div>
-            {% endfor %}
-            <div id="pagination">
-            	{% show_pages %}
-            </div>
-            {% endwith %}
-          </div>
-          {% endif %}
-          <br>
-            <a href="{{eventprofile.fb_page}}" class="btn btn-block btn-social btn-facebook" style="width:130px" target="_blank">
-            <span class="fa fa-facebook"></span> Event Page</a>
-            <br>
-           
-        {% else %}
-          <p>No Facebook event page found </p>
-        {% endif %}
-      <!-- Start Recent Projects Carousel -->
-
-      <div class="hr5" style="margin-top:45px; margin-bottom:35px;"></div>
-
-      <h4 class="classic-title"><span>Guest List</span></h4>
-        <!-- Start Team Members -->
-        <div class="row">
-          {% for guest in eventprofile.guest_list %}
-          <!-- Start Member 1 -->
-          <div class="col-md-2 col-sm-6 col-xs-3">
-            <!--<div class="team-member"> -->
-              <!-- Member Photo, Name & Position -->
-              <!-- <div class="member-photo"> -->
-                <img src="{{ guest.user.profile.profile_image_url }}" alt="User Profile Picture"/>
-                <!--<div class="member-name">{{guest.user.first_name}} {{guest.user.last_name}}</div>-->
-              <!-- Memebr Words -->
-              <!-- <div class="member-info">
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore fugiat.</p>
-              </div> -->
-              <!-- Memebr Social Links -->
-              <!--<div class="member-socail">
-                <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
-                <a class="gplus" href="#"><i class="fa fa-google-plus"></i></a>
-                <a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a>
-                <a class="flickr" href="#"><i class="fa fa-flickr"></i></a>
-                <a class="mail" href="#"><i class="fa fa-envelope"></i></a>
-              </div> -->
-            <!--</div> -->
-          </div>
-          <!-- End Member 1 -->
-          {% endfor %}
-        </div>
-      {% else %}
-        <p>Sign up to see this stuff </p>
-      {% endif %}
-        
-      <div class="hr5" style="margin-top:45px; margin-bottom:35px;"></div>
-
-      <h4 class="classic-title"><span>FYR Private Event Photos</span></h4>
+      <h4 class="classic-title"><span>Photos</span></h4>
       {% if is_current_user_registered %}
         {% if eventprofile.gallery.photo_count > 0 %}
           <div class="row">
@@ -260,20 +84,10 @@
           <!-- End Team Members -->
         {% endif %}
           <br>
-          <!--<p>Want to help us find all the missing pictures? </p><a href="{% url 'donate_photos' eventprofile.slug %}" class="btn btn-system">Donate some pictures</a>-->
       {% else %}
         <p>Sign up to see pictures </p>
       {% endif %}
-        
-       <div class="hr5" style="margin-top:45px; margin-bottom:35px;"></div>
 
-       <h4 class="classic-title"><span>Travel Plans</span></h4>
-       {% if perms.users.fyr_member %}
-       <div class="message-box gradient-{% random_color %} col-md-3" >
-          <h5 class="classic-title"><span>For FYR Only</span></h5>
-          Found a bunch of cool software stuff to automate our budgeting and travel plans...Stay tuned.
-        </div>
-        {% endif %}
     </div>
   </div>
 {% endblock %}  

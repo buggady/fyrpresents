@@ -60,7 +60,7 @@
                 <input type="submit"></input>
               </form> </li>
             {% endif %}
-            <!--<li><input type="button" class="btn-system btn-small btn-rsvp" > Tickets<</li>-->
+ 
             {% if eventprofile.website %}<li><strong>Website: </strong><a href="{{eventprofile.website}}"> {{eventprofile.event.title}}</a> </li>{% endif %}
             <li>
              {% if request.user.is_authenticated %}
@@ -158,7 +158,6 @@
     {% if perms.users.fyr_member %}
       <div class="row">
         <h4 class="classic-title"><span>Travel Plans</span></h4>
-         <!-- {% render_product eventprofile.tickets %} -->
       </div>
     {% endif %}
 

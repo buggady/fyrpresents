@@ -13,7 +13,7 @@ from oscar.defaults import *
 #BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = Path(__file__).ancestor(3)
 
-ALLOWED_HOSTS = ['texasfyre.com','fyrpresents.com', '127.0.0.1', '74.220.216.114']
+ALLOWED_HOSTS = ['texasfyre.com','fyrpresents.com', 'www.fyrpresents.com', 'www.texasfyre.com', '127.0.0.1', '74.220.216.114']
 
 ADMINS = (('Nick', 'nicolasdeshefy@gmail.com'),)
 SERVER_EMAIL = 'info@fyrpresents.com'
@@ -23,7 +23,6 @@ INSTALLED_APPS = [
     'fyrpresents',
     'events',
     'users',
-    'mingle',
     'market',
     'mathfilters',
     'crispy_forms',
@@ -49,10 +48,9 @@ INSTALLED_APPS = [
     'tagging',
     'zinnia',
     'schedule',
-    'address',
     'annoying',
     'paypal',
-    'oscar_accounts',
+	'oscar_accounts',
     'endless_pagination',
     'admin_tools',
     'admin_tools.theming',
@@ -66,7 +64,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-] + get_core_apps(['market.checkout'])
+] + get_core_apps(['market.partner', 'market.checkout'])
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',

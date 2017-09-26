@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from schedule.models import Event
 from events.models import Event, EventUserRel
 from users.models import UserProfile
-from address.models import Address
 from django.views import generic
 from datetime import date
 from users.forms import UserForm, ProfileForm

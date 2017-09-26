@@ -3239,7 +3239,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-bottom: 0;
   border-width: 1px 0 0;
 }
-.navbar-brand {
+/*.navbar-brand {
   float: left;
   padding: 14px 15px;
   font-size: 18px;
@@ -3255,7 +3255,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar > .container-fluid .navbar-brand {
     margin-left: -15px;
   }
-}
+}*/
 .navbar-toggle {
   position: relative;
   float: right;

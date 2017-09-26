@@ -9,8 +9,6 @@ from schedule.models import Event
 from taggit.managers import TaggableManager
 from photologue.models import Gallery
 from vote.models import VoteModel
-from oscar.apps.catalogue.models import Product
-from address.models import AddressField
 from django.core.urlresolvers import reverse
 
 class EventProfile(models.Model):
@@ -28,12 +26,9 @@ class EventProfile(models.Model):
     slug = AutoSlugField(unique=True, editable=True)
     category = models.CharField(max_length=14, choices=CATEGORY_CHOICES, default='general')
     private = models.BooleanField(default=True)
-    products_for_sale = models.ForeignKey(Product, related_name='event', blank=True, null=True)
-    address = AddressField(related_name='address', blank=True, null=True)
-    tickets = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
     host = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
-    facebook_event_id = models.CharField(max_length=100, blank=True)
-    facebook_fyr_event_id = models.CharField(max_length=100, blank=True)
+    facebook_event_id = models.CharField(max_length=100, blank=True, null=True)
+    facebook_fyr_event_id = models.CharField(max_length=100, blank=True, null=True)
     facebook_album_id = models.CharField(max_length=100, blank=True, null=True)
     website = models.URLField(max_length=200, null=True, blank=True)
     aftermovie_url = models.URLField(max_length=200, null=True, blank=True)

@@ -122,11 +122,11 @@
                     <a class="soundcloud" target="_blank" data-placement="bottom" title="SoundCloud" href="https://soundcloud.com/fyrcrew/"><i class="fa fa-soundcloud"></i></a>
                   </li>
                   <li>
-                    <a class="facebook" data-placement="bottom" title="Facebook" href="#"><i class="fa fa-facebook"></i></a>
+                    <a class="facebook" data-placement="bottom" title="Facebook" href="https://www.facebook.com/FYRPresents/"><i class="fa fa-facebook"></i></a>
                   </li>
-                  <li>
+                  <!-- <li>
                     <a class="twitter" data-placement="bottom" title="Twitter" href="#"><i class="fa fa-twitter"></i></a>
-                  </li>
+                  </li> -->
                   <li>
                     <a class="instgram" target="_blank" data-placement="bottom" title="Instagram" href="https://www.instagram.com/fyrcrew/"><i class="fa fa-instagram"></i></a>
                   </li>
@@ -142,7 +142,7 @@
                     <a class="skype" data-placement="bottom" title="Log Out" href="/accounts/logout/" style="padding:7px 0 7px 0">Log Out</a>
                   {% else %}
                     <!--<a id="login" class="btn btn-system" style="color:white">Sign In</a>-->
-                    <a class="btn btn-system" title="Sign In" href="/accounts/login/">Sign In</a>
+                    <a class="btn btn-system" title="Sign In" style="color:white" href="/accounts/login/">Sign In</a>
                   {% endif %}
                   </li>
                 </ul>
@@ -173,15 +173,14 @@
               <!-- Start Navigation List -->
               <ul class="nav navbar-nav navbar-right">
                 <li><a {% if 'home' in request.path %}class="active"{% endif %} href="{% url 'home' %}">Home</a></li>
+                <li><a {% if 'events' in request.path %}class="active"{% endif %} href="{% url 'events' %}">Events</a>
+                  <ul class="dropdown">
+                    <li><a href="{% url 'fullcalendar' 'fyr-official-calendar' %}">Calendar</a></li>
+                  </ul>
+                </li>
                 {% if request.user.is_authenticated %}
-                  <li><a {% if 'events' in request.path %}class="active"{% endif %} href="{% url 'events' %}">Events</a>
-                    <ul class="dropdown">
-                      <li><a href="{% url 'fullcalendar' 'fyr-official-calendar' %}">Calendar</a></li>
-                    </ul>
-                  </li>
                   {% if perms.users.fyr_member %}
                     {% if perms.users.fyr_developer %}
-                      <li><a {% if 'mingle' in request.path %}class="active"{% endif %} href="{% url 'mingle' %}">Mingle</a></li>
                       <li><a {% if 'weblog' in request.path %}class="active"{% endif %} href="/weblog">Blog</a></li>
                       <li><a {% if 'market' in request.path %}class="active"{% endif %} href="/market">Market</a>
                       </li>
@@ -200,15 +199,14 @@
           <!-- Mobile Menu Start -->
           <ul class="wpb-mobile-menu">
             <li><a {% if 'home' in request.path %}class="active"{% endif %} href="{% url 'home' %}">Home</a></li>
+            <li><a {% if 'events' in request.path %}class="active"{% endif %} href="{% url 'events' %}">Events</a>
+              <ul class="dropdown">
+                <li><a href="{% url 'fullcalendar' 'fyr-official-calendar' %}">Calendar</a></li>
+              </ul>
+            </li>
             {% if request.user.is_authenticated %}
-              <li><a {% if 'events' in request.path %}class="active"{% endif %} href="{% url 'events' %}">Events</a>
-                <ul class="dropdown">
-                  <li><a href="{% url 'fullcalendar' 'fyr-official-calendar' %}">Calendar</a></li>
-                </ul>
-              </li>
               {% if perms.users.fyr_member %}
                 {% if perms.users.fyr_developer %}
-                  <li><a {% if 'mingle' in request.path %}class="active"{% endif %} href="{% url 'mingle' %}">Mingle</a></li>
                   <li><a {% if 'weblog' in request.path %}class="active"{% endif %} href="/weblog">Blog</a></li>
                   <li><a {% if 'market' in request.path %}class="active"{% endif %} href="/market">Market</a>
                   </li>
@@ -232,10 +230,10 @@
       <!-- Start Footer Section -->
       <footer>
         <div class="container">
-          <div class="row footer-widgets">
+          <div class="row footer-widgets justify-content-center">
 
             <!-- Start Subscribe & Social Links Widget -->
-            <div class="col-md-3">
+            <div class="col-md-3 col-md-offset-1">
               <div class="footer-widget mail-subscribe-widget">
                 <h4>Get in touch<span class="head-line"></span></h4>
                 <p>Join our mailing list to stay up to date and get notices about our random stuff!</p>
@@ -263,11 +261,11 @@
                     <a class="soundcloud" href="https://soundcloud.com/fyrcrew/"><i class="fa fa-soundcloud"></i></a>
                   </li> 
                   <li>
-                    <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
+                    <a class="facebook" href="https://www.facebook.com/FYRPresents/"><i class="fa fa-facebook"></i></a>
                   </li>
-                  <li>
+                  <!-- <li>
                     <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
-                  </li>
+                  </li> -->
                   <li>
                     <a class="instgram" href="https://www.instagram.com/fyrcrew/"><i class="fa fa-instagram"></i></a>
                   </li>
@@ -289,7 +287,7 @@
                 <ul class="flickr-list" id="instafeed"></ul>
               </div>
             </div>
-            <!-- Start Twitter Widget -->
+            <!-- Start Twitter Widget
             <div class="col-md-3">
               <div class="footer-widget twitter-widget">
                 <h4>Twitter Feed<span class="head-line"></span></h4>
@@ -308,7 +306,7 @@
                   </li>
                 </ul>
               </div>
-            </div>
+            </div> -->
             <!-- .col-md-3 -->
             <!-- End Twitter Widget -->
             <!-- Start Contact Widget -->
