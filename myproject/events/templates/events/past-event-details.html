@@ -6,29 +6,23 @@
 {% load endless %}
 {% block title %}{% trans "Event Details" %}{% endblock title %}
 {% block description %}{% trans "View details of a specific event that FYR plans to attend in the near future." %}{% endblock %}
+
+{% block bannerdetails %}
+	<h2>{{ eventprofile.event.title }}</h2>
+    <p>{{ eventprofile.event.start|date }}</p>
+{% endblock %}
+
+{% block breadcrumbs %}
+<ul class="breadcrumbs">
+    <li><a href="/">Home</a></li>
+	<li><a href="{% url 'events' %}">Events</a></li>
+	<li><a href="#">{{ eventprofile.event.title }}</a></li>
+</ul>
+{% endblock %}
+
 {% block content %}
 <!-- Container -->
 <div id="container">
-  <!-- Start Page Banner -->
-  <div class="page-banner">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <!--<h2>{{event.title}}</h2>
-          <p>{{event.start_date|date}}</p>-->
-        </div>
-        <div class="col-md-6">
-          <ul class="breadcrumbs">
-            <li><a href="/">Home</a></li>
-            <li><a href="/events">Events</a></li>
-            <li><a href="#">{{eventprofile.event.title}}</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End Page Banner -->
-
   <div id="content">
     <div class="container">
       {% with 'events/images/'|add:eventprofile.slug as image_static %}

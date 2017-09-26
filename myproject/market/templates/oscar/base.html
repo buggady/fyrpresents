@@ -18,34 +18,26 @@
     {% endblock %}
 {% endblock extra_head %}
 
-{% block content %}
-    <!-- Start Page Banner -->
-    <div class="page-banner">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <h2>The Rave Trade</h2>
-            <p>Share your art, see some art, become the art!</p>
-          </div>
-          <div class="col-md-6">
-            <ul class="breadcrumbs">
-              <li><a href="{% url 'home' %}">Home</a></li>
-              <li><a href="#">Rave Trade</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      </div>
-    <!-- End Page Banner -->
+{% block bannerdetails %}
+	<h2>The Rave Trade</h2>
+    <p>Share your art, see some art, become the art!</p>
+{% endblock %}
 
+{% block breadcrumbs %}
+<ul class="breadcrumbs">
+	<li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="/market">Rave Trade</a></li>
+	{% block morebreadcrumbs %}{% endblock %}
+</ul>
+{% endblock %}
+
+{% block content %}
     <div id="content">
         <div class="container">
           {# Main content goes in this 'layout' block #}
           {% block layout %}{% endblock %}
         </div>
-    </div>
-
-    
+    </div>    
 
     {# Block for body onload functions #}
     <script type="text/javascript">

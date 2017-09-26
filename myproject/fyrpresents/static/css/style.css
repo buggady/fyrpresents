@@ -1049,17 +1049,19 @@ ul.social-list li:last-child a i {
 
 .page-banner {
     padding: 30px 0;
-    background: url(../images/slide-02-bg.jpg) center;
+    background: url(../images/titlebarbackground.jpg) center;
 	border-bottom: 1px solid #eee;
 }
 
 .page-banner h2 {
 	font-weight: 500;
 	text-transform: uppercase;
+	color: #FFF;
 }
 
 .page-banner p {
 	font-weight: 300;
+	color: #FFF;
 }
 
 ul.breadcrumbs {
@@ -1076,8 +1078,8 @@ ul.breadcrumbs li {
 	font-size: 13px;
 	font-weight: 300;
     margin-left: 3px;
-	color: #999;
 	float: left;
+	color: #FFF;
 }
 
 ul.breadcrumbs li:before {
@@ -1096,7 +1098,7 @@ ul.breadcrumbs li:first-child:before {
 }
 
 ul.breadcrumbs li a {
-	color: #666;
+	color: #FFF;
 	font-weight: 600;
 	transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;

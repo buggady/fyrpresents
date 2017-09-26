@@ -2,26 +2,19 @@
 {% load i18n %}
 {% block title %}{% trans "Newsletter detail" %}{% endblock title %}
 
-{% block content %}
+{% block bannerdetails %}
+	<h2>Newsletter</h2>
+	<p>Random Updates from FYR</p>
+{% endblock %}
 
-<!-- Start Page Banner -->
-<div class="page-banner">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h2>Newsletter</h2>
-        <p>Monthly Updates from FYR</p>
-      </div>
-      <div class="col-md-6">
-        <ul class="breadcrumbs">
-          <li><a href="{% url 'home' %}">Home</a></li>
-          <li><a href="#">Monthly Newsletter</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  </div>
-<!-- End Page Banner -->
+{% block breadcrumbs %}
+<ul class="breadcrumbs">
+	<li><a href="{% url 'home' %}">Home</a></li>
+	<li><a href="#">Newsletter</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
 
 <div id="content">
   <div class="container">

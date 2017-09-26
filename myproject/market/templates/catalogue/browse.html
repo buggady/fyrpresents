@@ -12,6 +12,10 @@
 
 {% block headertext %}{{ summary }}{% endblock %}
 
+{% block morebreadcrumbs %}
+	<li><a href="#">Browse</a></li>
+{% endblock %}
+
 {% block column_left %}
     {% category_tree as tree_categories %}
     {% if tree_categories %}

@@ -4,6 +4,14 @@
 
 <div class="navbar primary navbar-static-top navbar-inverse">
     <div class="container-fluid">
+            {# This is used in mobile view #}
+            <a class="btn btn-default navbar-toggle collapsed" data-toggle="collapse" data-target=".primary-collapse">
+                <span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </span>
+            </a>
 
         <a class="btn btn-default navbar-btn btn-cart navbar-right visible-xs-inline-block" href="{% url 'basket:summary' %}">
             <i class="icon-shopping-cart"></i>
@@ -24,8 +32,8 @@
         <div class="navbar-collapse primary-collapse collapse">
             {% block nav_dropdown %}
                 <ul id="browse" class="nav navbar-nav">
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <li class="dropdown active {% if expand_dropdown %}open{% endif %}">
+                        <a href="#" class="dropdown-toggle" {% if not expand_dropdown %} data-toggle="dropdown"{% endif %}>
                             {% trans "Browse store" %}
                             <b class="caret"></b>
                         </a>

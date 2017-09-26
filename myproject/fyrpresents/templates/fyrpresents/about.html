@@ -3,29 +3,23 @@
 {% load static %}
 {% block title %}{% trans "About Us" %}{% endblock title %}
 {% block description %}{% trans "Get to know FYR and what we have grown to become. Read about us on this page." %}{% endblock %}
+
+{% block bannerdetails %}
+	<h2>About Us</h2>
+	<p>We Are Professionals!</p>
+{% endblock %}
+
+{% block breadcrumbs %}
+<ul class="breadcrumbs">
+	<li><a href="{% url 'home' %}">Home</a></li>
+	<li><a href="#">About Us</a></li>
+</ul>
+{% endblock %}
+
 {% block content %}
 
 <header class="clearfix" id="headerInsert"></header>
 <!-- End Header -->
-
-<!-- Start Page Banner -->
-<div class="page-banner">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h2>About US</h2>
-        <p>We Are Professionals!</p>
-      </div>
-      <div class="col-md-6">
-        <ul class="breadcrumbs">
-          <li><a href="{% url 'home' %}">Home</a></li>
-          <li><a href="#">About Us</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  </div>
-<!-- End Page Banner -->
 
 <!-- Start Content -->
 <div id="content">

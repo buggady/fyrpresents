@@ -53,15 +53,13 @@ class PastEventsListView(ListView):
     def dispatch(self, *args, **kwargs):
        return super(PastEventsListView, self).dispatch(*args, **kwargs)
 
-
-class EventDetailsView(View):
-
+class EventDetailsView(DetailView):
     model = EventProfile
 
     template_name='events/event-details.html'
 
     def get_context_data(self, **kwargs):
-        context = super(EventDisplay, self).get_context_data(**kwargs)
+        context = super(EventDetailsView, self).get_context_data(**kwargs)
         tmp_user = get_object_or_404(User, username=self.request.user.username)
         tmp_event_profile = self.get_object()
          

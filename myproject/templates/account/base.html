@@ -1,5 +1,17 @@
 {% extends "fyrpresents/base.html" %}
 
+{% block bannerdetails %}
+	<h2>Accounts</h2>
+    <p>Take care of your accounts</p>
+{% endblock %}
+
+{% block breadcrumbs %}
+<ul class="breadcrumbs">
+	<li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="/accounts">Accounts</a></li>
+</ul>
+{% endblock %}
+
 {% block content %}
 	{% if messages %}
 	<div>

@@ -40,9 +40,9 @@
 }
 
 @media (max-width: 991px) {
-	.navbar-top.affix .navbar-brand {
+	/* .navbar-top.affix .navbar-brand {
 		padding: 19px 15px; 
-	}
+	} */
 	.boxed-page, .boxed-page header {
 		width: 100%;
 	}
@@ -188,9 +188,9 @@
 }
 
 @media (max-width: 768px) {
-  	.navbar-top.affix .navbar-brand {
+  	/* .navbar-top.affix .navbar-brand {
 		padding: 19px 15px; 
-	}
+	} */
 	.tp-leftarrow,
 	.tp-rightarrow {
 		display: none!important;
@@ -236,9 +236,9 @@
 
 }
 @media only screen and (max-width: 479px) { 
-  	.navbar-top.affix .navbar-brand {
+  	/* .navbar-top.affix .navbar-brand {
 		padding: 19px 15px; 
-	}
+	} */
     .top-bar  {
 		text-align: center;
 	}

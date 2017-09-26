@@ -2939,7 +2939,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .input-group-btn:last-child > .btn-group {
   margin-left: -1px;
 }
-.nav {
+/* .nav {
   margin-bottom: 0;
   padding-left: 0;
   list-style: none;
@@ -3255,7 +3255,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar > .container-fluid .navbar-brand {
     margin-left: -15px;
   }
-}*/
+}
+
 .navbar-toggle {
   position: relative;
   float: right;
@@ -3490,7 +3491,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     margin-right: 0;
   }
 }
-.navbar-default {
+/* .navbar-default {
   background-color: #f8f8f8;
   border-color: #e7e7e7;
 }
@@ -3687,7 +3688,7 @@ fieldset[disabled] .navbar-inverse .btn-link:hover,
 .navbar-inverse .btn-link[disabled]:focus,
 fieldset[disabled] .navbar-inverse .btn-link:focus {
   color: #444;
-}
+} */
 .breadcrumb {
   padding: 8px 15px;
   margin-bottom: 20px;
@@ -5335,12 +5336,13 @@ textarea {
 .modal > form {
   margin-bottom: 0;
 }
-div[data-spy="affix"] {
+/* div[data-spy="affix"] {
   width: 266px;
 }
 div[data-spy="affix"].affix {
   top: 1.42857143;
-}
+} */
+
 .bs-docs-sidenav {
   padding: 0;
   background-color: #fff;

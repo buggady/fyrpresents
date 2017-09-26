@@ -184,7 +184,7 @@ HAYSTACK_CONNECTIONS = {
 }
 
 OSCAR_SHOP_NAME = "The Rave Trade"
-OSCAR_SHOP_TAGLINE = "Share your art, check out other's art!"
+OSCAR_SHOP_TAGLINE = "Share your art, see some art, become the art!"
 OSCAR_DEFAULT_CURRENCY = "USD"
 OSCAR_FROM_EMAIL = "accounts@fyrpresents.com"
 OSCAR_INITIAL_ORDER_STATUS = 'Pending'

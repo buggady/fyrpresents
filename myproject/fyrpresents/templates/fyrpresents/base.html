@@ -223,6 +223,21 @@
         <!-- End Header Logo & Navigation -->
       </header>
       <!-- End Header Section -->
+	  
+	<!-- Start Page Banner -->
+	  <div class="page-banner">
+		<div class="container" >
+		  <div class="row">
+			<div class="col-md-6">
+				{% block bannerdetails %}FYR Presents{% endblock %}
+			</div>
+			<div class="col-md-6">
+				{% block breadcrumbs %}FYR Official Website{% endblock %}
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <!-- End Page Banner -->
 
       <!-- Full Body Container -->
       {% block content %}{% endblock %}

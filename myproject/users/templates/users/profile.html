@@ -3,26 +3,20 @@
 {% load static %}
 {% block title %}{% trans "Your Profile" %}{% endblock title %}
 {% block description %}{% trans "Page for storing user personal content relating to their events and content." %}{% endblock %}
-{% block content %}
 
-<!-- Start Page Banner -->
-<div class="page-banner">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h2>User Profile</h2>
-        <p>Your Own Personal Spaces</p>
-      </div>
-      <div class="col-md-6">
-        <ul class="breadcrumbs">
-          <li><a href="{% url 'home' %}">Home</a></li>
-          <li><a href="#">User Profile</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- End Page Banner -->
+{% block bannerdetails %}
+	<h2>User Profile</h2>
+	<p>Your Own Personal Space</p>
+{% endblock %}
+
+{% block breadcrumbs %}
+<ul class="breadcrumbs">
+	<li><a href="{% url 'home' %}">Home</a></li>
+	<li><a href="#">User Profile</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
 
 <!-- Start Content -->
 <div id="content">
