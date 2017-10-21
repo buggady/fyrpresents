@@ -8,21 +8,16 @@
 {{ offer.name }} | {{ block.super }}
 {% endblock %}
 
-{% block breadcrumbs %}
-<ul class="breadcrumb">
-    <li>
-        <a href="{{ homepage_url }}">{% trans "Home" %}</a>
-    </li>
+{% block morebreadcrumbs %}
     <li>
         <a href="{% url 'offer:list' %}">{% trans "Offers" %}</a>
     </li>
     <li class="active">{{ offer.name }}</li>
-</ul>
 {% endblock %}
 
 {% block headertext %}{{ offer.name }}{% endblock %}
 
-{% block content %}
+{% block subcontent %}
 
     {% if not offer.is_available %}
         <div class="alert alert-danger">{% trans " This offer is no longer available." %}</div>

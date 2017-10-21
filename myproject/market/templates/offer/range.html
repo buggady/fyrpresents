@@ -10,14 +10,9 @@
     {{ range.name }} | {{ block.super }}
 {% endblock %}
 
-{% block breadcrumbs %}
-    <ul class="breadcrumb">
-        <li>
-            <a href="{{ homepage_url }}">{% trans "Home" %}</a>
-        </li>
-        <li class="active">{{ range.name }}</li>
-    </ul>
-{% endblock breadcrumbs %}
+{% block morebreadcrumbs %}
+    <li class="active">{{ range.name }}</li>
+{% endblock %}
 
 {% block headertext %}{{ range.name }}{% endblock %}
 

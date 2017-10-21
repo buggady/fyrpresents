@@ -65,7 +65,6 @@
     <script type="text/javascript" src="{% static 'js/jquery.textillate.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery.lettering.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery.easypiechart.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/smooth-scroll.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/skrollr.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery.parallax.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/mediaelement-and-player.js' %}"></script>
@@ -182,7 +181,7 @@
                   {% if perms.users.fyr_member %}
                     {% if perms.users.fyr_developer %}
                       <li><a {% if 'weblog' in request.path %}class="active"{% endif %} href="/weblog">Blog</a></li>
-                      <li><a {% if 'market' in request.path %}class="active"{% endif %} href="/market">Market</a>
+                      <li><a {% if 'market' in request.path %}class="active"{% endif %} href="/market/catalogue">Market</a>
                       </li>
                     {% endif %}
                     <li><a {% if 'profile' in request.path %}class="active"{% endif %} href="{% url 'userprofile' %}">Profile</a></li> 
@@ -208,7 +207,7 @@
               {% if perms.users.fyr_member %}
                 {% if perms.users.fyr_developer %}
                   <li><a {% if 'weblog' in request.path %}class="active"{% endif %} href="/weblog">Blog</a></li>
-                  <li><a {% if 'market' in request.path %}class="active"{% endif %} href="/market">Market</a>
+                  <li><a {% if 'market' in request.path %}class="active"{% endif %} href="/market/catalogue">Market</a>
                   </li>
                 {% endif %}
                 <li><a {% if 'profile' in request.path %}class="active"{% endif %} href="{% url 'userprofile' %}">Profile</a></li>

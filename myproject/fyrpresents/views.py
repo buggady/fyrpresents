@@ -1,16 +1,20 @@
+import logging
 from django.shortcuts import render
 from django.core.mail import send_mail
 from forms import ContactForm
 from django.contrib.auth.models import Group, User
 
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
+
 def home(request):
     return render(request, 'fyrpresents/home.html')
 
 def about(request):
-   return render(request, 'fyrpresents/about.html')
+    logger.debug('Something went wrong!')
+    return render(request, 'fyrpresents/about.html')
 
 def contact(request):
-   
     form = ContactForm()
     message = ' '
 

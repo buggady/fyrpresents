@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'schedule',
     'annoying',
     'paypal',
+	'djstripe',
 	'oscar_accounts',
     'endless_pagination',
     'admin_tools',
@@ -64,7 +65,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-] + get_core_apps(['market.partner', 'market.checkout'])
+] + get_core_apps(['market.partner', 'market.checkout', 'market.shipping'])
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',

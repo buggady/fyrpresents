@@ -1,15 +1,14 @@
 {% extends "djstripe/base.html" %}
-{% load i18n %}
-{% load static %}
-{% block title %}Accounts Dashboard{% endblock title %}
-{% block description %}{% trans "This is the users account information." %}{% endblock %}
 
-{% block subcontent %}
+{% block title %}Accounts Dashboard{% endblock title %}
+
+{% block content %}
 {{ block.super }}
+<div class="container">
     <div class="row">
         <div class="col-xs-12">
             {% include "djstripe/includes/_subscription_status.html" %}
-            <h4 class="title"><span>Account Information</span></h4>
+            <h2>Account Information</h2>
         </div>
     </div>
     <div class="row">
@@ -21,7 +20,7 @@
         </div>
         <div class="col-xs-4">
             <p>
-                <a class="btn btn-primary" href="{% url 'djstripe:change_card' %}">Change Card</a>
+                <a class="btn btn-primary pull-right" href="{% url 'djstripe:change_card' %}">Change Card</a>
             </p>
         </div>
     </div>
@@ -83,6 +82,7 @@
         {# No plans so just show payment history #}
         {% include "djstripe/includes/_history_table.html" %}
     {% endif %}
+</div>
 
   <!-- Modal for showing card -->
   <div class="modal fade" id="show-card">
@@ -103,7 +103,7 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
-{% endblock subcontent %}
+{% endblock content %}
 
 {% block javascript %}
 {{ block.super }}

@@ -2,7 +2,7 @@
 
 {% block title %}Payment History{% endblock title %}
 
-{% block subcontent %}
+{% block content %}
 <div class="row">
     <div class="col-xs-12">
         <ul class="breadcrumb">
@@ -12,7 +12,7 @@
         {% include "djstripe/includes/_history_table.html" %}
     </div>
 </div>
-{% endblock subcontent %}
+{% endblock content %}
 
 {% block javascript %}
 {{ block.super }}

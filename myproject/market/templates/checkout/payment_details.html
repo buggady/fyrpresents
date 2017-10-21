@@ -1,31 +1,50 @@
-{% extends "checkout/checkout.html" %}
+{% extends 'oscar/checkout/payment_details.html' %}
 {% load url from future %}
-{% load currency_filters %}
 {% load i18n %}
-
-{% block title %}
-    {% trans "Payment details" %} | {{ block.super }}
-{% endblock %}
-
-{% block checkout_nav %}
-    {% include 'checkout/nav.html' with step=3 %}
-{% endblock %}
-
-{% block checkout_title %}{% trans "Enter payment details" %}{% endblock %}
-
-{% block order_contents %}{% endblock %}
-{% block shipping_address %}{% endblock %}
-{% block shipping_method %}{% endblock %}
-{% block payment_method %}{% endblock %}
+{% load static %}
 
 {% block payment_details %}
-    {% block payment_details_content %}
-        <div class="well">
-            <div class="sub-header">
-                <h3>{% trans "PayPal Express" %}</h3>
-            </div>
-            <p>{% trans "Click on the below icon to use Express Checkout but where the shipping address and method is already chosen on the merchant site." %}</p>
-            <div style="overflow:auto"><a href="{% url 'paypal-direct-payment' %}" title="{% trans "Pay with PayPal" %}"><img src="https://www.paypal.com/en_US/i/logo/PayPal_mark_37x23.gif" align="left" style="margin-right:7px;"></a>&nbsp;</div>
-        </div>
-    {% endblock payment_details_content %}
-{% endblock payment_details %}
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="sub-header">
+				<h3>{% trans "Stripe Checkout" %}</h3>
+				<h5>{% trans "Use our built in checkout system." %}</h5>
+			</div>
+			{% if customer.card_kind and customer.card_last_4 %}
+								Current card on file is a <strong>{{ customer.card_kind }}</strong>
+								ending in the digits <strong>{{ customer.card_last_4 }}</strong>.
+				<form action="." method="post">
+					{% csrf_token %}
+					<input type="hidden" name="action" value="use_default_payment_card" />
+					<button type="submit" class="btn btn-primary">{% trans "Use this card" %}</button>
+				</form>
+			{% else %}
+				You do not currently have a card on file.
+			{% endif %}
+			
+			<form action="{% url 'checkout:preview' %}" method="POST">
+				{% csrf_token %}
+				<script
+				  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+				  data-key="{{ STRIPE_PUBLIC_KEY }}"
+				  data-amount="{{ stripe_total }}"
+				  data-name="FYR Presents"
+				  data-description="Basket of Items"
+				  data-zip-code="true"
+				  data-image="{% static 'images/FyrLogoSmall.png' %}"
+				  data-label="{% trans 'Use Different Card' %}"
+				  data-locale="auto">
+				</script>
+			</form>	
+		</div>
+		<div class="col-sm-6">
+			{% if anon_checkout_allowed or request.user.is_authenticated %}
+				<div class="sub-header">
+					<h3>{% trans "Paypal Checkout" %}</h3>
+					<h5>{% trans "You will be sent to Paypal website to enter your payment details" %}</h5>
+				</div>
+				<a href="{% url 'paypal-redirect' %}"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" style="margin-right:7px;"></a>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

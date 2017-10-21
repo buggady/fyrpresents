@@ -8,13 +8,8 @@
 {% trans "Offers" %} | {{ block.super }}
 {% endblock %}
 
-{% block breadcrumbs %}
-<ul class="breadcrumb">
-    <li>
-        <a href="{{ homepage_url }}">{% trans "Home" %}</a>
-    </li>
+{% block morebreadcrumbs %}
     <li class="active">{% trans "Offers" %}</li>
-</ul>
 {% endblock %}
 
 {% block headertext %}

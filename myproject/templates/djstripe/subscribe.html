@@ -3,7 +3,7 @@
 
 {% block title %}Choose a Subscription{% endblock title %}
 
-{% block subcontent %}
+{% block content %}
 {{ block.super }}
 <ul class="breadcrumb">
   <li><a href="{% url 'djstripe:account' %}">Home</a></li>
@@ -48,4 +48,4 @@
     {% endfor %}
 </div>
 
-{% endblock subcontent %}
+{% endblock content %}
