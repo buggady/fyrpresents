@@ -1,17 +1,12 @@
-import logging
 from django.shortcuts import render
 from django.core.mail import send_mail
 from forms import ContactForm
 from django.contrib.auth.models import Group, User
 
-# Get an instance of a logger
-logger = logging.getLogger(__name__)
-
 def home(request):
     return render(request, 'fyrpresents/home.html')
 
 def about(request):
-    logger.debug('Something went wrong!')
     return render(request, 'fyrpresents/about.html')
 
 def contact(request):
@@ -44,3 +39,17 @@ def register(request):
     u = User.objects.get(username=request.user.username)
     g.user_set.add(u)
     return render(request, 'fyrpresents/home.html')
+
+from django.shortcuts import render
+
+def bad_request(request):
+    return render(request, 'fyrpresents/400.html')
+
+def permission_denied(request):
+    return render(request, 'fyrpresents/403.html')
+
+def not_found(request):
+    return render(request, 'fyrpresents/404.html')
+
+def server_error(request):
+    return render(request, 'fyrpresents/500.html')

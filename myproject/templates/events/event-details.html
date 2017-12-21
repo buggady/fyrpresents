@@ -1,0 +1,145 @@
+{% extends "fyrpresents/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load comments %}
+{% load random_color %}
+{% load product_tags %}
+{% block title %}{{ eventprofile.event.title}}{% trans "Event Details" %}{% endblock title %}
+{% block description %}{% trans "Page display details of an upcoming event that FYR plans to attend." %}{% endblock %}
+
+{% block bannerdetails %}
+	<h2>{{eventprofile.event.title}}</h2>
+  <p>{{eventprofile.event.start|date}}</p>
+{% endblock %}
+
+{% block breadcrumbs %}
+<ul class="breadcrumbs">
+	<li><a href="{% url 'home' %}">Home</a></li>
+	<li><a href="{% url 'events' %}">Events</a></li>
+	<li><a href="#">{{eventprofile.event.title}}</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<!-- Content -->
+  <div id="content">
+    <div class="container">
+      <!-- Start Row 1 with Overview -->
+      {% with 'events/images/'|add:eventprofile.slug as image_static %}
+        <div class="project-page row">
+          <!-- Start Overview Event Image -->
+          <div class="project-media col-md-8">
+            <div class="item crop">
+              <a href="{% static image_static %}.jpg">
+                <img alt="" src="{% static image_static %}.jpg">
+              </a>
+            </div>
+          </div>
+          <!-- End Overview Event Image -->
+          <!-- Start Overview Event Info -->
+          <div class="project-content col-md-4">
+            <br>
+            <h4><span>Quick Details</span></h4>
+            <ul> 
+              <li><strong>What's Going On: </strong>{{ eventprofile.event.description }}</li>
+              <li><strong>Dates: </strong>{{ eventprofile.event.start|date }} to {{ eventprofile.event.end|date }}</li>
+              {% if eventprofile.website %}<li><strong>Website: </strong><a href="{{eventprofile.website}}"> {{eventprofile.event.title}}</a> </li>{% endif %}
+              <li>
+                {% if request.user.is_authenticated %}
+                  <input type="button" class="btn-system btn-small btn-rsvp" name="{{ eventprofile.slug }}" value="{{ rsvp_button_value }}" />
+                {% endif %}
+              </li> 
+            </ul>
+          </div>
+          <!-- End Overview Event Info -->
+        </div>
+      {% endwith %}
+      <!-- End Row 1 with Overview -->
+
+      <div class="hr5" style="margin-top:45px; margin-bottom:35px;"></div>
+
+      {% if is_current_user_registered %}
+        <h4 class="classic-title"><span>People Sharing This Experience!</span></h4>
+        {% if is_current_user_registered %}
+          <div class="row">
+            {% for guest in eventprofile.guest_list %}
+              <div class="col-md-2 col-xs-6">
+                <div class="team-member">
+                  <div class="member-photo">
+                    <div class="crop-user">
+                      <img src="{{ guest.user.profile.profile_image_url }}" alt="User Profile Picture"/>
+                    </div>
+                    <div class="member-name">{{guest.user.first_name}} {{guest.user.last_name}}</div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p>Sign up to see the guest list </p>
+        {% endif %}
+        
+        <div class="hr5" style="margin-top:45px; margin-bottom:35px;"></div>
+      
+        <h4 class="classic-title"><span>Photos Of What Is Coming</span></h4>
+        {% if eventprofile.gallery.photo_count > 0 %}
+          <div class="row">
+            {% for photo in eventprofile.gallery.sample %}
+              <div class="col-md-2 col-sm-6 col-xs-3">
+                <a href="{{ photo.get_absolute_url }}">
+                 <img src="{{ photo.get_thumbnail_url }}" class="thumbnail" alt="{{ photo.title }}">
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+          <a href="{{ eventprofile.gallery.get_absolute_url }}" class="btn btn-system">View full gallery</a>
+        {% else %}
+          <p>Well, this sucks, there are no photos yet. Looks like there aren't any photos for this event yet. .</p>
+        {% endif %}
+
+        <div class="hr5" style="margin-top:45px; margin-bottom:35px;"></div>
+
+        {% if perms.users.fyr_member %}
+          <h4 class="classic-title"><span>Travel Plans</span></h4>
+          <div class="row">
+            <p>Coming Eventually</p>
+          </div>
+        {% endif %}
+
+        <div class="hr5" style="margin-top:45px; margin-bottom:35px;"></div>
+
+        <div id="comments">
+          {% get_comment_count for eventprofile as comment_count %}
+          {% if comment_count %}
+            <H5 class="text-center">
+              {% blocktrans count comment_count=comment_count %}
+              There is {{ comment_count }} comment below.
+              {% plural %}
+              There are {{ comment_count }} comments below.
+              {% endblocktrans %}
+            </H5>
+            <hr/>
+          {% endif %}
+
+          {% if eventprofile.allow_comments %}
+            <div class="comment">
+              <h4 class="text-center">Let us know what you are thinking</h4>
+              <div class="well">
+                {% render_comment_form for eventprofile %}
+              </div>
+            </div>
+          {% else %}
+            <h5 class="text-center">comments are disabled for this article</h5>
+          {% endif %}
+
+          {% if comment_count %}
+            <hr/>
+            <div id="comment-list">
+              {% render_comment_list for eventprofile %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %} 

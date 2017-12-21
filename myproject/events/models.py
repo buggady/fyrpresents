@@ -6,10 +6,10 @@ from annoying.fields import AutoOneToOneField
 from django.utils import timezone
 import datetime
 from schedule.models import Event
-from taggit.managers import TaggableManager
-from photologue.models import Gallery
+from photologue.models import Gallery, Photo
 from vote.models import VoteModel
 from django.core.urlresolvers import reverse
+from taggit.managers import TaggableManager
 
 class EventProfile(models.Model):
 
@@ -26,16 +26,16 @@ class EventProfile(models.Model):
     slug = AutoSlugField(unique=True, editable=True)
     category = models.CharField(max_length=14, choices=CATEGORY_CHOICES, default='general')
     private = models.BooleanField(default=True)
-    host = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
-    facebook_event_id = models.CharField(max_length=100, blank=True, null=True)
-    facebook_fyr_event_id = models.CharField(max_length=100, blank=True, null=True)
-    facebook_album_id = models.CharField(max_length=100, blank=True, null=True)
+    facebook_event_id = models.CharField(max_length=100, blank=True)
+    facebook_fyr_event_id = models.CharField(max_length=100, blank=True)
+    facebook_album_id = models.CharField(max_length=100, blank=True)
     website = models.URLField(max_length=200, null=True, blank=True)
     aftermovie_url = models.URLField(max_length=200, null=True, blank=True)
     gallery = models.ForeignKey(Gallery, on_delete=models.SET_NULL, blank=True, null=True)
+    display_photo = models.ForeignKey(Photo, on_delete=models.SET_NULL, blank=True, null=True)
     allow_comments = models.BooleanField('allow comments', default=True)
-
-    #tags = TaggableManager()
+	
+    tags = TaggableManager()
 
     @property
     def in_the_past(self):
@@ -55,8 +55,6 @@ class EventProfile(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.event.title)
-        if not self.host:
-            self.host = User.objects.get(username='admin')
         if not self.gallery:
             tmp_slug = slugify(self.event.title)
             self.gallery, created = Gallery.objects.get_or_create(title=self.event.title, slug=tmp_slug)

@@ -27,10 +27,10 @@ urlpatterns = [
 	url(r'^admin/', admin.site.urls),
 ] 
 
-handler400 = 'myproject.views.bad_request'
-handler403 = 'myproject.views.permission_denied'
-handler404 = 'myproject.views.not_found'
-handler500 = 'myproject.views.server_error'
+handler400 = 'fyrpresents.views.bad_request'
+handler403 = 'fyrpresents.views.permission_denied'
+handler404 = 'fyrpresents.views.not_found'
+handler500 = 'fyrpresents.views.server_error'
 
 if settings.DEBUG:
     import debug_toolbar

@@ -207,7 +207,7 @@
                                             <tr>
                                                 <td colspan="{% if product_class.track_stock %}10{% else %}7{% endif %}">
                                                     {% for error in stockrecord_form.non_field_errors  %}
-                                                        <span class="error-block errorlist"><i class="icon-exclamation-sign"></i> {{ error }}</span>
+                                                        <span class="error-block errorlist"><i class="fa fa-exclamation-circle"></i> {{ error }}</span>
                                                     {% endfor %}
                                                 </td>
                                             </tr>
@@ -244,7 +244,7 @@
                                         <caption>
                                             {% trans "Variants" %}
                                             <button class="btn btn-primary pull-right{% if not product.can_be_parent %} disabled{% endif %}" name="action" type="submit" value="create-child" data-loading-text="{% trans 'Adding...' %}">
-                                                <i class="icon-plus"></i>
+                                                <i class="fa fa-plus"></i>
                                                 {% trans "Add variant" %}
                                             </button>
                                         </caption>

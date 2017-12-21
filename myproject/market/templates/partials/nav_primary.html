@@ -23,7 +23,7 @@
         </span>
     </div>
     <a class="btn btn-default navbar-btn pull-right btn-cart navbar-right visible-xs-inline-block" href="{% url 'basket:summary' %}">
-        <i class="icon-shopping-cart"></i>
+        <i class="fa fa-shopping-cart"></i>
         {% trans "Basket" %}
         {% if not request.basket.is_empty %}
             {% if request.basket.is_tax_known %}

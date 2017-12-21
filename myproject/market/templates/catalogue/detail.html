@@ -30,7 +30,7 @@
         {% if backbutton %}
             <li class="pull-right">
                 <a href="{{ backbutton.url }}">
-                    <i class="icon-arrow-left"></i> {{ backbutton.title }}
+                    <i class="fa fa-arrow-left"></i> {{ backbutton.title }}
                 </a>
             </li>
         {% endif %}
@@ -59,7 +59,7 @@
             pops out when clicked.  A bit like the Django-Debug-Toolbar button
             {% endcomment %}
             {% if user.is_authenticated and user.is_staff %}
-                <a class="pull-right hidden-xs" href="{% url 'dashboard:catalogue-product' pk=product.id %}"><small><i class="icon-edit"></i> {% trans "Edit this product" %}</small></a>
+                <a class="pull-right hidden-xs" href="{% url 'dashboard:catalogue-product' pk=product.id %}"><small><i class="fa fa-edit"></i> {% trans "Edit this product" %}</small></a>
             {% endif %}
             <h1>{{ product.get_title }}</h1>
 

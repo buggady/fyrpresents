@@ -1,0 +1,154 @@
+e{% extends "fyrpresents/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load media %}
+{% load random_color %}
+
+{% block title %}{% trans "Events Overview" %}{% endblock title %}
+{% block description %}{% trans "Overview of the countless events shared by FYR members." %}{% endblock %}
+
+{% block bannerdetails %}
+	<h2>Events</h2>
+    <p>Check out some the things we are doing.</p>
+{% endblock %}
+
+{% block breadcrumbs %}
+<ul class="breadcrumbs">
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="#">Events</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Start Content -->
+  	<div id="content">
+    	<div class="container">
+    		<!-- First Row of of Overview-->
+			<div class="row">
+    			<div class="col-md-7">
+      				<h4 class="classic-title"><span>Adventuring Through Life</span></h4>
+      				<p>It seems every weekend, FYR members have some planned events they are attending or hosting or discussing. Big events are usually planned several months ahead so as to give everyone enough time to gather funds and pool resources to find the optimal means of completing the adventure. </p>
+    			</div>
+    			<div class="col-md-5">
+      				<div class="item"><img alt="" src="{% static 'images/euphoria-2017-group.jpg' %}"></div>
+    			</div>
+  			</div>
+  			<!-- End First Row of Overview -->
+
+  			<div class="hr5" style="margin-top:45px; margin-bottom:35px;"></div>
+
+  			<!-- Begin 2nd Row of Future Events -->
+      		<div class="recent-projects">
+				<h4 class="title"><span>Our Upcoming Events</span></h4>
+		  		<div class="portfolio-page portfolio-3column">
+		    		<ul id="portfolio-list" data-animated="fadeIn">
+		    	    	{% for event in event_list %}
+			    	    	<li>
+			    	    		{% with 'events/images/'|add:event.profile.slug|add:'.jpg' as image_static %}
+			      				<div class="crop">
+			      					<img src="/media/{{ event.profile.display_picture.get_absolute_url }}" />
+			            			<!-- <img src="{% static image_static %}" alt="" /> -->
+			            		</div>
+			                	<div class="portfolio-item-content">
+			                		<span class="header">{{event.title}}</span>
+			                		<p class="body animated8">{{event.start|date}}</p>
+			                	</div>
+			                	<div class="icon-list">
+			                		{% if request.user.is_authenticated %}
+			                			<a class="link" title="Enter Event Page" href="{% url 'event_details' event.profile.slug %}"><i class="fa fa-hand-spock-o"></i></a>
+			                		{% endif %}
+			                  		<a class="zoom lightbox" title="Quick Overview" href="{% static image_static %}"><i class="fa fa-paper-plane-o"></i></a>
+			                	</div> 
+			                	{% endwith %}
+			              	</li>
+		    			{% endfor %}
+					</ul>
+		      	</div>
+		    </div>
+		    <!-- End 2nd Row of Future Events -->
+          
+          	<div class="hr5" style="margin-top:45px; margin-bottom:35px;"></div>
+
+		    <!-- Start 3rd Row of Past Events -->
+		    <div class="recent-projects">
+		      	<h4 class="title"><span>Our Past Events</span></h4>
+		      	<div class="projects-carousel touch-carousel">
+		      		{% if perms.users.fyr_member %}
+			      		<div class="message-box gradient-{% random_color %}" style="height:200px">
+				    		<h5 class="classic-title"><span>For FYR Only</span></h5>
+				    		We have attended countless events and it is super hard for me to track them all down. Do you know of an event I'm missing? Fill out <code><a href="{% url 'submit_past_event' %}"> <strong>this form</strong></a></code> and, like magic, it might just get added to list.
+				    	</div>
+			    	{% endif %}
+
+				    {% for event in past_events_list %}
+			      		{% with 'events/images/'|add:event.profile.slug|add:'.jpg' as image_static %}
+					      	<div class="portfolio-item item">
+						        <div class="portfolio-border">
+						            <div class="portfolio-thumb crop-event" >	
+						              	{% if request.user.is_authenticated %}
+							              	<a href="{% url 'past_event_details' event.profile.slug %}">
+							                	<img src="{% static image_static %}" alt="" />
+							                </a>
+						                {% endif %}
+						            </div>
+						            <div class="portfolio-details">
+						            	{% if request.user.is_authenticated %}
+							                <a href="{% url 'past_event_details' event.profile.slug %}">
+							                	<h4>{{event.title}}</h4>
+							                	<span>{{event.start|date}}</span>
+							                </a>
+							            {% endif %}
+						                <!-- <a href="#" class="like-link"><i class="fa fa-user-secret fa-2"></i><span>{{event.profile.guest_count}}</span></a> -->
+						            </div>
+						        </div>
+						    </div>
+                		{% endwith %}
+				    {% endfor %}
+		    	</div>
+		    	<br>
+		    	<a href="{% url 'past_events_list' %}" class="btn btn-system">View All Past Events</a>
+		    </div>
+		    <!-- End 3rd Row of Past Events -->
+
+		    <div class="hr5" style="margin-top:45px; margin-bottom:35px;"></div>
+
+		    {% if perms.users.fyr_member %}
+		    <!-- Start 4th Rod of Event Ideas -->
+		    <div class="row">  
+			    <div class="message-box gradient-{% random_color %} col-md-3">
+					<h5 class="classic-title"><span>For FYR Only</span></h5>
+					Have an idea for a new event? A new place to visit? An adventure? Want to host something? Together, lets adventure through all the weird! Fill out <code><a href="{% url 'submit_event_idea' %}"> <strong>this form</strong></a></code> and we can let everyone argue about it.
+				</div>
+			</div>
+      		<div class="recent-projects">
+				<h4 class="title"><span>New Event Ideas</span></h4>
+		  		<div class="portfolio-page portfolio-4column">
+					<!-- Start Recent Projects Carousel -->
+		    		<ul id="portfolio-list" data-animated="fadeIn">
+		    			{% for eventidea in event_ideas_list %}
+			    	    	<li>
+			    	    		{% with 'events/images/'|add:eventidea.slug|add:'.jpg' as image_static %}
+				            		<div class="portfolio-thumb crop-event">
+				            			<img src="{% static image_static %}" alt="{{ eventidea.title }}" />
+				            		</div>
+				                	<div class="portfolio-item-content">
+				                		<span class="header">{{ eventidea.title }}</span>
+				                	</div>
+				                	<div class="icon-list">
+				                		<a class="link" href="{% url 'event_idea_details' eventidea.slug %}"><i class="fa fa-link"></i></a>
+				                	</div> 
+			                	{% endwith %}
+			              	</li>
+		              	{% endfor %}
+					</ul>
+		      	</div>
+		    </div>
+		    <!-- End 4th Row of Event Ideas -->
+		    {% endif %}
+		</div>
+	</div>
+</div>
+<!-- End Content -->
+
+{% endblock %}	

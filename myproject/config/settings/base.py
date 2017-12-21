@@ -130,6 +130,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
 # Static files (CSS, JavaScript, Images)
 STATIC_ROOT = BASE_DIR.parent.child("static")
 STATIC_URL = '/static/'
@@ -167,15 +171,15 @@ EMAIL_PORT = 465
 
 NEWSLETTER_CONFIRM_EMAIL = False
 
-PHOTOLOGUE_GALLERY_SAMPLE_SIZE=10
+PHOTOLOGUE_GALLERY_SAMPLE_SIZE=12
 
 COMMENTS_APP = 'django_comments_xtd'
 COMMENTS_XTD_MAX_THREAD_LEVEL = 2
 COMMENTS_XTD_CONFIRM_EMAIL = True
 
-ADMIN_TOOLS_MENU = 'myproject.menu.CustomMenu'
-ADMIN_TOOLS_INDEX_DASHBOARD = 'myproject.dashboard.CustomIndexDashboard'
-ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'myproject.dashboard.CustomAppIndexDashboard'
+ADMIN_TOOLS_MENU = 'config.menu.CustomMenu'
+ADMIN_TOOLS_INDEX_DASHBOARD = 'config.dashboard.CustomIndexDashboard'
+ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'config.dashboard.CustomAppIndexDashboard'
 ADMIN_TOOLS_THEMING_CSS = 'css/theming.css'
 
 HAYSTACK_CONNECTIONS = {
@@ -184,7 +188,7 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
-OSCAR_SHOP_NAME = "The Rave Trade"
+OSCAR_SHOP_NAME = "The Rave Cave"
 OSCAR_SHOP_TAGLINE = "Share your art, see some art, become the art!"
 OSCAR_DEFAULT_CURRENCY = "USD"
 OSCAR_FROM_EMAIL = "accounts@fyrpresents.com"

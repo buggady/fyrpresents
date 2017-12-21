@@ -19,7 +19,7 @@
 
 {% block header %}
     <div class="page-header">
-        <a href="{% url 'dashboard:offer-metadata' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Create new offer" %}</a>
+        <a href="{% url 'dashboard:offer-metadata' %}" class="btn btn-primary btn-lg pull-right"><i class="fa fa-plus"></i> {% trans "Create new offer" %}</a>
         <h1>{% trans "Offers" %}</h1>
     </div>
 {% endblock header %}
@@ -36,7 +36,7 @@
         {% csrf_token %}
         <table class="table table-striped table-bordered">
             <caption>
-                <i class="icon-gift icon-large"></i>{{ queryset_description }}
+                <i class="fa fa-gift fa fa-lg"></i>{{ queryset_description }}
                 {% if is_filtered %}
                     <a href="{% url 'dashboard:offer-list' %}" >{% trans "Reset" %}</a>
                 {% endif %}

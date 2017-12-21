@@ -7,44 +7,122 @@
 	<div class="row">
 		<div class="col-sm-6">
 			<div class="sub-header">
-				<h3>{% trans "Stripe Checkout" %}</h3>
-				<h5>{% trans "Use our built in checkout system." %}</h5>
-			</div>
-			{% if customer.card_kind and customer.card_last_4 %}
-								Current card on file is a <strong>{{ customer.card_kind }}</strong>
-								ending in the digits <strong>{{ customer.card_last_4 }}</strong>.
-				<form action="." method="post">
+			<h3>{% trans "Enter Payment Information" %}</h3>
+			<h5>{% trans "Not sure how secure this is. Enter at your own risk." %}</h5>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				{% if customer.card_kind and customer.card_last_4 %}
+					Current card on file is a <strong>{{ customer.card_kind }}</strong>
+					ending in the digits <strong>{{ customer.card_last_4 }}</strong>.
+					<form action="." method="post">
+						{% csrf_token %}
+						<input type="hidden" name="action" value="use_default_payment_card" />
+						<button type="submit" class="btn btn-primary">{% trans "Use this card" %}</button>
+					</form>
+				{% else %}
+					You do not currently have a card on file.
+				{% endif %}
+				
+				{% if stripe_error %}
+					<div class="alert alert-error">{{ stripe_error }}</div>
+				{% endif %}	
+
+				<form method="POST" id="change-card-form">
 					{% csrf_token %}
-					<input type="hidden" name="action" value="use_default_payment_card" />
-					<button type="submit" class="btn btn-primary">{% trans "Use this card" %}</button>
+					<input type="hidden" name="action" value="user_new_payment_card" />
+				  	<span class="payment-errors"></span>
+
+					<div class="form-group">
+						<div class="controls">
+							<input class="form-control" type="text" maxlength="16" size="16" pattern="\d*" autocomplete="off" data-stripe="number" placeholder="Card Number"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="controls">
+							<input class="form-control" type="text" maxlength="3" size="3" pattern="\d*" data-stripe="cvc" placeholder="CVC" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="controls">
+							<input class="form-control" type="text" maxlength="2" size="2" pattern="\d*" autocomplete="off" data-stripe="exp-month" placeholder="MM" />/ 
+							<input class="form-control" type="text" maxlength="4" size="4" pattern="\d*" autocomplete="off" data-stripe="exp-year" placeholder="YYYY" />
+						</div>
+					</div>
+
+					<button class="btn btn-primary change-card" type="submit">Submit</button>
 				</form>
-			{% else %}
-				You do not currently have a card on file.
-			{% endif %}
-			
-			<form action="{% url 'checkout:preview' %}" method="POST">
-				{% csrf_token %}
-				<script
-				  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-				  data-key="{{ STRIPE_PUBLIC_KEY }}"
-				  data-amount="{{ stripe_total }}"
-				  data-name="FYR Presents"
-				  data-description="Basket of Items"
-				  data-zip-code="true"
-				  data-image="{% static 'images/FyrLogoSmall.png' %}"
-				  data-label="{% trans 'Use Different Card' %}"
-				  data-locale="auto">
-				</script>
-			</form>	
+			</div>
+		</div>
 		</div>
 		<div class="col-sm-6">
-			{% if anon_checkout_allowed or request.user.is_authenticated %}
-				<div class="sub-header">
-					<h3>{% trans "Paypal Checkout" %}</h3>
-					<h5>{% trans "You will be sent to Paypal website to enter your payment details" %}</h5>
+			<div class="sub-header">
+				<h3>{% trans "Third Party Payment Gateways" %}</h3>
+				<h5>{% trans "Use Stripe over Paypal and we won't have any problems." %}</h5>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<form action="{% url 'checkout:preview' %}" method="POST">
+						{% csrf_token %}
+						<script
+						  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+						  data-key="{{ STRIPE_PUBLIC_KEY }}"
+						  data-amount="{{ stripe_total }}"
+						  data-name="FYR Presents"
+						  data-description="Basket of Items"
+						  data-zip-code="true"
+						  data-image="{% static 'images/FyrLogoSmall.png' %}"
+						  data-label="{% trans 'Stripe Checkout' %}"
+						  data-locale="auto">
+						</script>
+					</form>	
 				</div>
-				<a href="{% url 'paypal-redirect' %}"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" style="margin-right:7px;"></a>
-			{% endif %}
+				<div class="col-sm-6">
+					{% if anon_checkout_allowed or request.user.is_authenticated %}
+						<a href="{% url 'paypal-redirect' %}"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" style="margin-right:7px;"></a>
+					{% endif %}
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}
+
+{% block javascript %}
+	{{ block.super }}
+	<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+	<script type="text/javascript">
+	  // This identifies your website in the createToken call below
+	  Stripe.setPublishableKey('{{ STRIPE_PUBLIC_KEY }}');
+	  jQuery(function($) {
+	    $('#change-card-form').submit(function(event) {
+	        var $form = $(this);
+
+	        // Disable the submit button to prevent repeated clicks
+	        $form.find('button').prop('disabled', true);
+
+	        Stripe.card.createToken($form, stripeResponseHandler);
+
+	        // Prevent the form from submitting with the default action
+	        return false;
+	    });
+
+	    var stripeResponseHandler = function(status, response) {
+	      var $form = $('#change-card-form');
+
+	      if (response.error) {
+	        // Show the errors on the form
+	        $form.find('.payment-errors').text(response.error.message);
+	        $form.find('button').prop('disabled', false);
+	      } else {
+	        // token contains id, last4, and card type
+	        var token = response.id;
+	        // Insert the token into the form so it gets submitted to the server
+	        $form.append($('<input type="hidden" name="stripe_token" />').val(token));
+	        // and submit
+	        $form.get(0).submit();
+	      }
+	    };
+	});
+	</script>
+{% endblock javascript %}

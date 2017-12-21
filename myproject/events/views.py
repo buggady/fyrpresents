@@ -2,22 +2,17 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseForbidden
-from django.views.generic import FormView, View, DetailView, ListView
-from django.views.generic.detail import SingleObjectMixin
+from django.views.generic import View, DetailView, ListView
 from django.contrib.auth.models import User
 from users.models import UserProfile
 from schedule.models import Event
 from events.models import EventUserRel, EventProfile, EventIdeas
 from forms import DonatePhotosForm, SubmitEventIdeaForm, SubmitPastEventForm
 from django.core.mail import send_mail
-from django.template.loader import render_to_string
-import os, os.path
 from django.utils import timezone
 import datetime
-from django.conf import settings
 import facebook_sdk
 from allauth.socialaccount.models import SocialToken
-
 from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.decorators import method_decorator
 
@@ -29,7 +24,7 @@ except ImportError:
 from django.views.decorators.http import require_POST
 
 class EventsOverviewView(ListView):
-    template_name = 'events/events-overview.html'
+    template_name = 'events/overview.html'
 
     def get_queryset(self):
         return Event.objects.filter(end__gte=datetime.date.today()).order_by("end")
@@ -62,20 +57,7 @@ class EventDetailsView(DetailView):
         context = super(EventDetailsView, self).get_context_data(**kwargs)
         tmp_user = get_object_or_404(User, username=self.request.user.username)
         tmp_event_profile = self.get_object()
-         
-        try:
-            token = SocialToken.objects.filter(account__user=tmp_user, account__provider='facebook')
-            graph = facebook_sdk.GraphAPI(access_token=token, version='2.7')
-            tmp_event_id = str(tmp_event_profile.facebook_event_id)
-            facebook_data = graph.get_object(id=tmp_event_id)
-            context['facebook_data'] = facebook_data
-            context['fb_description'] = facebook_data['description']
-            context['fb_photos'] = graph.get_connections(id=tmp_event_id, connection_name='photos', fields='link')
-            context['fb_guest_list'] = graph.get_connections(id=tmp_event_id, connection_name='attending', fields='id, picture', limit='100')
-        except:
-            context['fb_description'] = 'Problem retrieving facebook info'
-            context['fb_photos'] = 'Problem retrieving photos'
-
+        
         if EventUserRel.objects.filter(user=tmp_user, event=tmp_event_profile.event).exists():
             context['rsvp_button_value'] = 'Remove Me'
             context['is_current_user_registered'] = True
@@ -100,18 +82,6 @@ class PastEventDetailsView(DetailView):
         context = super(PastEventDetailsView, self).get_context_data(**kwargs)
         tmp_user = get_object_or_404(User, username=self.request.user.username)
         tmp_event_profile = self.get_object()
-        try:
-            token = SocialToken.objects.filter(account__user=tmp_user, account__provider='facebook')
-            graph = facebook_sdk.GraphAPI(access_token=token, version='2.7')
-            tmp_event_id = str(tmp_event_profile.facebook_event_id)
-            facebook_data = graph.get_object(id=tmp_event_id)
-            context['facebook_data'] = facebook_data
-            context['fb_description'] = facebook_data['description']
-            context['fb_photos'] = graph.get_connections(id=tmp_event_id, connection_name='photos', fields='link, picture')
-            context['fb_guest_list'] = graph.get_connections(id=tmp_event_id, connection_name='attending', fields='link, picture.height(140).width(140), name', limit='100')
-            context['fb_feed'] = graph.get_connections(id=tmp_event_id, connection_name='feed', fields='id, from, created_time, message, picture, link, type, description, object_id', date_format="U", limit='100')
-        except:
-            context['fb_description'] = 'Problem retrieving facebook info'
         if EventUserRel.objects.filter(user=tmp_user, event=tmp_event_profile.event).exists():
             context['rsvp_button_value'] = 'Remove Me'
             context['is_current_user_registered'] = True
@@ -122,7 +92,7 @@ class PastEventDetailsView(DetailView):
         return context
 
     @method_decorator(login_required)
-    @method_decorator(permission_required('users.fyr_member', raise_exception=True))
+    #@method_decorator(permission_required('users.fyr_member', raise_exception=True))
     def dispatch(self, *args, **kwargs):
         return super(PastEventDetailsView, self).dispatch(*args, **kwargs)
 

@@ -13,7 +13,7 @@
 {% block headertext %}{{ summary }}{% endblock %}
 
 {% block morebreadcrumbs %}
-	<li><a href="#">Browse</a></li>
+	<li><a href="#">Browse Stuff</a></li>
 {% endblock %}
 
 {% block column_left %}
@@ -60,7 +60,6 @@
 {% endblock %}
 
 {% block subcontent %}
-
     <form method="get" class="form-horizontal">
         {# Render other search params in a hidden block #}
         <div style="display:none">
@@ -95,7 +94,6 @@
             </p>
         {% endif %}
     </form>
-
     {% if products %}
         <section>
             <div>

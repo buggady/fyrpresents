@@ -1,0 +1,117 @@
+{% extends "fyrpresents/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load random_color %}
+{% load timestamp_to_time %}
+{% load endless %}
+{% block title %}{% trans "Event Details" %}{% endblock title %}
+{% block description %}{% trans "View details of a specific event that FYR plans to attend in the near future." %}{% endblock %}
+
+{% block bannerdetails %}
+	<h2>{{ eventprofile.event.title }}</h2>
+    <p>{{ eventprofile.event.start|date }}</p>
+{% endblock %}
+
+{% block breadcrumbs %}
+<ul class="breadcrumbs">
+    <li><a href="/">Home</a></li>
+	<li><a href="{% url 'events' %}">Events</a></li>
+	<li><a href="#">{{ eventprofile.event.title }}</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<!-- Container -->
+<div id="container">
+  <div id="content">
+    <div class="container">
+      {% with 'events/images/'|add:eventprofile.slug as image_static %}
+        <div class="project-page row">
+          <!-- Start Single Project Slider -->
+          <div class="project-media col-md-8">
+            <div class="item crop">
+              <a href="{% static image_static %}.jpg">
+                <img alt="" src="{% static image_static %}.jpg">
+              </a>
+            </div>
+          </div>
+          <!-- End Single Project Slider -->
+         <!-- Start Project Content -->
+          <div class="project-content col-md-4">
+            <h4><span>Details</span></h4>
+            <ul> 
+              <li>{{ eventprofile.event.description }}</li>
+              <li><strong>Date:</strong> {{ eventprofile.event.start|date }}</li>
+              <li>
+                {% if request.user.is_authenticated %}
+                    <input type="button" class="btn-system btn-small btn-rsvp" name="{{ eventprofile.slug }}" value="{{ rsvp_button_value }}" />
+                {% endif %}
+              </li> 
+              {% if eventprofile.aftermovie_url %}
+              <li>
+                <iframe width="200" height="120" src="{{eventprofile.aftermovie_url}}" frameborder="0" allowfullscreen></iframe>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>  
+      {% endwith %}     
+
+      <div class="hr5" style="margin-top:45px; margin-bottom:35px;"></div>
+
+      <h4 class="classic-title"><span>Photos</span></h4>
+      {% if is_current_user_registered %}
+        {% if eventprofile.gallery.photo_count > 0 %}
+          <div class="row">
+            {% for photo in eventprofile.gallery.sample %}
+              <div class="col-xs-6 col-md-2 ">
+                <a href="{{ photo.get_absolute_url }}">
+                 <img src="{{ photo.get_thumbnail_url }}" class="thumbnail" alt="{{ photo.title }}">
+                </a>
+              </div>
+            {% endfor %}
+			</div>
+            <a href="{{ eventprofile.gallery.get_absolute_url }}" class="btn btn-system">View full gallery</a>
+        {% else %}
+          <p>Looks like there aren't any photos for this event. We are working to track down all the pictures lost in the depths of the internet.</p>
+          <p>If you would like to upload some pictures to the gallery, well, we should probably get that feature working for you</p>
+          <!-- End Team Members -->
+        {% endif %}
+          <br>
+      {% else %}
+        <p>Sign up to see pictures </p>
+      {% endif %}
+
+    </div>
+  </div>
+{% endblock %}  
+  
+{% block javascript %}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=119227861825480";
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+<script>
+  $('.btn-rsvp').click(function(){
+      var $this = $(this);
+      $.ajax({
+               type: "POST",
+               url: "{% url 'rsvp_to_event' %}",
+               data: {'slug': $(this).attr('name'), 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+               dataType: "json",
+               success: function(response) {
+                  $this.attr('value', $this.attr('value') == 'Add Me' ? 'Remove Me' : 'Add Me');
+                  alert(response.message);
+                },
+                error: function(rs, e) {
+                  alert(rs.responseText);
+                }
+          }); 
+    })
+</script>
+{% endblock %}

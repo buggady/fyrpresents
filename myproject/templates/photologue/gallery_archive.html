@@ -21,7 +21,9 @@
 		<main class="col-md-10">
 			{% if latest %}
 			    {% for gallery in latest %}
+					{% if gallery.photo_count > 0 %}
 			    	{% include "photologue/includes/gallery_sample.html" %}
+					{% endif %}
 			    {% endfor %}
 			{% else %}
 			    <p>{% trans "No galleries were found" %}.</p>
